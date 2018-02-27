@@ -5,6 +5,7 @@ using UnityEngine;
 public class DamageTextHandler : MonoBehaviour {
 
     public DamageText damageText;
+    public DamageText damageTextEnemy;
 
     public static DamageTextHandler dth;
 
@@ -15,9 +16,22 @@ public class DamageTextHandler : MonoBehaviour {
        
     }
 
-    public static void makeDamageText(string text, Transform location)
+    public static void makeDamageText(string text, Transform location, float time, string type)
     {
-        DamageText tempDamageText = Instantiate(dth.damageText);
+        dth.StartCoroutine("textOfDamage", time);
+        DamageText tempDamageText = null;
+        switch(type)
+        {
+            case "Enemy":
+                Debug.Log("Enemy thing selected");
+                tempDamageText = Instantiate(dth.damageTextEnemy);
+                break;
+            case "Player":
+                tempDamageText = Instantiate(dth.damageText);
+                break;
+        }
+
+        
         GameObject canvas = GameObject.Find("Canvas");
         Vector2 screenPosition = Camera.main.WorldToScreenPoint(location.position);
         tempDamageText.transform.SetParent(canvas.transform, false);
@@ -25,8 +39,14 @@ public class DamageTextHandler : MonoBehaviour {
         tempDamageText.transform.position = screenPosition;
     }
 
-	// Use this for initialization
-	void Start () {
+    IEnumerator textOfDamage(float time)
+    { 
+        yield return new WaitForSeconds(time);
+       
+    }
+
+    // Use this for initialization
+    void Start () {
 
         if (dth == null)
         {

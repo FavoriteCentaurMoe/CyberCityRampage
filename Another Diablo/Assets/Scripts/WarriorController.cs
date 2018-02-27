@@ -222,6 +222,7 @@ public class WarriorController : MonoBehaviour {
     public void HurtPlayer(float damage)
     {
         currentHealth -= damage;
+        DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Player");
     }
 
     //public void OnCollisionEnter2D(Collision2D collision)

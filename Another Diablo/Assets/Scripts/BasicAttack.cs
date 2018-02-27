@@ -21,7 +21,7 @@ public class BasicAttack : MonoBehaviour {
         if(collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>().HurtEnemy(warrior_controller.strength);
-            DamageTextHandler.makeDamageText(warrior_controller.strength.ToString(), transform);
+            //DamageTextHandler.makeDamageText(warrior_controller.strength.ToString(), transform);
             warrior_controller.currentRage += 3;
         }
     }

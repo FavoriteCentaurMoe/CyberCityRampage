@@ -22,6 +22,7 @@ public class EnemyController : MonoBehaviour {
     public void HurtEnemy(float damage)
     {
         currentHealth -= damage;
+        DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Enemy");
     }
 
     public void Death()
