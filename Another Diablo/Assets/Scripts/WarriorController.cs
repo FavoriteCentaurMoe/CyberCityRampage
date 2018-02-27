@@ -151,11 +151,12 @@ public class WarriorController : MonoBehaviour {
                     currentRage -= 15f;
                     cleaveCooldown = Time.time + 3f; // set the next time that this skill can be used to the current time plus the cooldown time
                     Debug.Log("Cleave");
-
+                    anim.SetBool("Cleave", true);
+                    yield return new WaitForSeconds(0.5f);
                     cleaveRangeRight.gameObject.SetActive(true);
-
-                    yield return new WaitForSeconds(0.5f); // this number is the duration of the animation
+                    yield return new WaitForSeconds(0.2f); // this number is the duration of the animation
                     cleaveRangeRight.gameObject.SetActive(false);
+                    anim.SetBool("Cleave", false);
 
                 }
 
@@ -225,11 +226,11 @@ public class WarriorController : MonoBehaviour {
         DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Player");
     }
 
-    //public void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Enemy")
-    //    {
-    //        HurtPlayer(collision.gameObject.GetComponent<ChasePlayer>().damage);
-    //    }
-    //}
+   //public void OnCollisionEnter2D(Collision2D collision)
+   //{
+   //     if (collision.gameObject.tag == "Enemy")
+   //   {
+   //         HurtPlayer(collision.gameObject.GetComponent<ChasePlayer>().damage);
+   //     }
+   // }
 }
