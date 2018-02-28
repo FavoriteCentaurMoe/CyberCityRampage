@@ -14,6 +14,7 @@ public class ChasePlayer : MonoBehaviour {
     public Transform defaultPosition;
     public float attackFrom;
     public float knockBackDistance;
+    private Animation anim;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,7 @@ public class ChasePlayer : MonoBehaviour {
         damage = 5f;
         stunned = false;
         knockBack = false;
+        anim = GetComponent<Animation>();
 	}
 	
 	// Update is called once per frame

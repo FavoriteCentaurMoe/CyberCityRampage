@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicAttack : MonoBehaviour {
-    public float knockDist = 1f;
+    public float knockDist = 1.5f;
     public WarriorController warrior_controller;
 
 
