@@ -42,7 +42,7 @@ public class WarriorController : MonoBehaviour {
         maxRage = 100f;
         currentHealth = maxHealth;
         currentRage = 100f;
-        attackSpeed = 0.35f;
+        attackSpeed = 0.15f;
         isBasicAttacking = false;
         player_movement.speed = 5f;
         
@@ -68,9 +68,29 @@ public class WarriorController : MonoBehaviour {
         StartCoroutine(ShieldBash());
         StartCoroutine(Taunt());
         StartCoroutine(Cleave());
-        Berserker();
-		
-	}
+        StartCoroutine(Berserker());
+        WhileBerserk();
+
+
+    }
+    private void WhileBerserk()
+    {
+        if (goingBerserk)
+        {
+            if (berserkTime <= Time.time) // time is up
+            {
+                goingBerserk = false;
+                attackSpeed = 0.15f;
+                Debug.Log("Done going Berserk");
+            }
+            else // still going berserk
+            {
+                // buffs and stuff go here
+                attackSpeed = 0f;
+                currentRage += 3 * Time.deltaTime;
+            }
+        }
+    }
 
     private IEnumerator BasicAttack()
     {
@@ -82,12 +102,14 @@ public class WarriorController : MonoBehaviour {
                 anim.SetBool("isBasicAttacking", true);
                 isBasicAttacking = true;
                 //Debug.Log("basic attack");
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.2f);
                 attackRangeRight.gameObject.SetActive(true);
-                yield return new WaitForSeconds(attackSpeed); // how long to wait before the next attack can be done
-                isBasicAttacking = false;
+                yield return new WaitForSeconds(0.1f);
+                
                 anim.SetBool("isBasicAttacking", false);
                 attackRangeRight.gameObject.SetActive(false);
+                yield return new WaitForSeconds(attackSpeed); // how long to wait before the next attack can be done
+                isBasicAttacking = false;
 
 
             }
@@ -106,10 +128,10 @@ public class WarriorController : MonoBehaviour {
                     currentRage -= 25f;
                     shieldBashCooldown = Time.time + 5f; // set the next time that this skill can be used to the current time plus the cooldown time
                     Debug.Log("shield bash");
-                    player_movement.speed = 9.5f;
+                    player_movement.speed = 10.5f;
                     shieldBashRangeRight.gameObject.SetActive(true);
 
-                    yield return new WaitForSeconds(1.5f); // animation time
+                    yield return new WaitForSeconds(1.3f); // animation time
                     player_movement.speed = 5f;
                     //shieldBashRangeRight.transform.DetachChildren();
                     shieldBashRangeRight.gameObject.SetActive(false);
@@ -128,13 +150,14 @@ public class WarriorController : MonoBehaviour {
             {
                 if (Input.GetButton("X Button"))
                 {
+                    anim.SetBool("Taunt", true);
                     currentRage -= 35f;
                     Debug.Log("Taunt");
                     tauntCooldown = Time.time + 7f; // set the next time that this skill can be used to the current time plus the cooldown time
                     tauntRange.gameObject.SetActive(true);
                     yield return new WaitForSeconds(1f);
                     tauntRange.gameObject.SetActive(false);
-                    
+                    anim.SetBool("Taunt", false);
                 }
 
             }
@@ -153,10 +176,10 @@ public class WarriorController : MonoBehaviour {
                     currentRage -= 15f;
                     cleaveCooldown = Time.time + 3f; // set the next time that this skill can be used to the current time plus the cooldown time
                     Debug.Log("Cleave");
-                    yield return new WaitForSeconds(0.5f);
+                    yield return new WaitForSeconds(0.7f);
                     cleaveRangeRight.gameObject.SetActive(true);
 
-                    yield return new WaitForSeconds(0.2f); // this number is the duration of the animation
+                    yield return new WaitForSeconds(0.1f); // this number is the duration of the animation
                     cleaveRangeRight.gameObject.SetActive(false);
                     anim.SetBool("Cleave", false);
 
@@ -166,7 +189,7 @@ public class WarriorController : MonoBehaviour {
         }
 
     }
-    private void Berserker()// Ultimate skill: cant be CC'd (maybe also attack speed up), cost 50, cooldown 30
+    private IEnumerator Berserker()// Ultimate skill: cant be CC'd (maybe also attack speed up), rage always increases, cost 50, cooldown 30
         // skill when activated lasts for 20 seconds
     {
 
@@ -176,27 +199,16 @@ public class WarriorController : MonoBehaviour {
             {
                 if (Input.GetButton("Y Button"))
                 {
+                    anim.SetBool("Berserker", true);
                     currentRage -= 50f;
                     berserkerCooldown = Time.time + 30f; // set the next time that this skill can be used to the current time plus the cooldown time
                     berserkTime = Time.time + 20f;
                     goingBerserk = true;
                     Debug.Log("Berserker!!!");
+                    yield return new WaitForSeconds(1.15f);
+                    anim.SetBool("Berserker", false);
                 }
 
-            }
-        }
-        if(goingBerserk) 
-        {
-            if(berserkTime <= Time.time) // time is up
-            {
-                goingBerserk = false;
-                attackSpeed = 0.35f;
-                Debug.Log("Done going Berserk");
-            }
-            else // still going berserk
-            {
-                // buffs and stuff go here
-                attackSpeed = 0.25f;
             }
         }
 

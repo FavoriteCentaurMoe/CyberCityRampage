@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShieldBash : MonoBehaviour {
-    public float knockDist = 2f;
+    public float knockDist = 3f;
     public float stunDuration = 1f;
 
 	// Use this for initialization
