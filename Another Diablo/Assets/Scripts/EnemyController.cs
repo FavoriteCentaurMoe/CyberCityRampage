@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        maxHealth = 10f;
+        maxHealth = 100f; // set  high for testing
         currentHealth = maxHealth;
 	}
 	
@@ -21,8 +21,8 @@ public class EnemyController : MonoBehaviour {
 
     public void HurtEnemy(float damage)
     {
-        currentHealth -= damage;
         DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Enemy");
+        currentHealth -= damage;
     }
 
     public void Death()

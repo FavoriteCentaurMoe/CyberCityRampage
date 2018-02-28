@@ -127,8 +127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   inRange: 0
+  stunned: 0
   speed: 0
   damage: 0
+  stunTime: 0
   defaultPosition: {fileID: 0}
 --- !u!114 &114774610954740154
 MonoBehaviour:

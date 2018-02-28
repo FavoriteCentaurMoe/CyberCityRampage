@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        //anim.SetFloat("Horizontal", Input.GetAxis("Left Joystick Horizontal"));
-        //anim.SetFloat("Vertical", Input.GetAxis("Left Joystick Vertical"));
         if(Input.GetAxis("Left Joystick Horizontal") == 0 && Input.GetAxis("Left Joystick Vertical") == 0)
         {
             anim.SetBool("Idle", true);
@@ -51,11 +49,11 @@ public class PlayerMovement : MonoBehaviour {
     {
         if(lastDirection > 0)
         {
-            transform.localScale = new Vector3(5, 5, 5);
+            transform.localScale = new Vector3(8, 8, 1);
         }
         else if(lastDirection < 0)
         {
-            transform.localScale = new Vector3(-5, 5, 5);
+            transform.localScale = new Vector3(-8, 8, 1);
         }
     }
 

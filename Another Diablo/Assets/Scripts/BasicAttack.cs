@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicAttack : MonoBehaviour {
+    public float knockDist = 1f;
     public WarriorController warrior_controller;
 
 
@@ -20,8 +21,14 @@ public class BasicAttack : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Enemy")
         {
+            //Vector3 collider_pos = collision.gameObject.transform.position;
             collision.gameObject.GetComponent<EnemyController>().HurtEnemy(warrior_controller.strength);
-            //DamageTextHandler.makeDamageText(warrior_controller.strength.ToString(), transform);
+            
+            collision.gameObject.GetComponent<ChasePlayer>().attackFrom = GetComponentInParent<PlayerMovement>().lastDirection;
+            collision.gameObject.GetComponent<ChasePlayer>().knockBackDistance = knockDist;
+            collision.gameObject.GetComponent<ChasePlayer>().knockBack = true;
+
+
             warrior_controller.currentRage += 3;
         }
     }

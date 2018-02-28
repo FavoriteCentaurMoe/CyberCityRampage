@@ -82,6 +82,7 @@ public class WarriorController : MonoBehaviour {
                 anim.SetBool("isBasicAttacking", true);
                 isBasicAttacking = true;
                 //Debug.Log("basic attack");
+                yield return new WaitForSeconds(0.1f);
                 attackRangeRight.gameObject.SetActive(true);
                 yield return new WaitForSeconds(attackSpeed); // how long to wait before the next attack can be done
                 isBasicAttacking = false;
@@ -110,7 +111,7 @@ public class WarriorController : MonoBehaviour {
 
                     yield return new WaitForSeconds(1.5f); // animation time
                     player_movement.speed = 5f;
-                    shieldBashRangeRight.transform.DetachChildren();
+                    //shieldBashRangeRight.transform.DetachChildren();
                     shieldBashRangeRight.gameObject.SetActive(false);
                     anim.SetBool("ShieldBash", false);
                 }
@@ -148,12 +149,13 @@ public class WarriorController : MonoBehaviour {
             {
                 if (Input.GetButton("B Button"))
                 {
+                    anim.SetBool("Cleave", true);
                     currentRage -= 15f;
                     cleaveCooldown = Time.time + 3f; // set the next time that this skill can be used to the current time plus the cooldown time
                     Debug.Log("Cleave");
-                    anim.SetBool("Cleave", true);
                     yield return new WaitForSeconds(0.5f);
                     cleaveRangeRight.gameObject.SetActive(true);
+
                     yield return new WaitForSeconds(0.2f); // this number is the duration of the animation
                     cleaveRangeRight.gameObject.SetActive(false);
                     anim.SetBool("Cleave", false);
@@ -222,15 +224,15 @@ public class WarriorController : MonoBehaviour {
 
     public void HurtPlayer(float damage)
     {
-        currentHealth -= damage;
         DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Player");
+        currentHealth -= damage;
     }
 
-   //public void OnCollisionEnter2D(Collision2D collision)
-   //{
-   //     if (collision.gameObject.tag == "Enemy")
-   //   {
-   //         HurtPlayer(collision.gameObject.GetComponent<ChasePlayer>().damage);
-   //     }
-   // }
+    //public void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Enemy")
+    //    {
+    //        HurtPlayer(collision.gameObject.GetComponent<ChasePlayer>().damage);
+    //    }
+    //}
 }

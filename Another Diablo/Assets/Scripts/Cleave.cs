@@ -24,7 +24,7 @@ public class Cleave : MonoBehaviour {
         {
             float damage;
             damage = warrior_controller.strength * 2f;
-            //DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Enemy");
+            //DamageTextHandler.makeDamageText(damage.ToString(), transform);
             collision.gameObject.GetComponent<EnemyController>().HurtEnemy(damage);
         }
     }
