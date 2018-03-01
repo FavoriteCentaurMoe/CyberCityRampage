@@ -63,7 +63,7 @@ public class ChasePlayer : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<WarriorController>().HurtPlayer(damage);
+            collision.gameObject.GetComponent<PlayerController>().HurtPlayer(damage);
             //DamageTextHandler.makeDamageText(damage.ToString(), collision.transform);
         }
     }

@@ -50,4 +50,9 @@ public class Aiming : MonoBehaviour {
             eternalAimer.SetActive(false);
         }
     }
+
+    public Transform eternalAimerInfo()
+    {
+        return eternalAimer.transform;
+    }
 }

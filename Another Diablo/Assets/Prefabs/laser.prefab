@@ -81,6 +81,7 @@ MonoBehaviour:
   lifetime: 5
   speed: 5
   damage: 0
+  friendly: 0
 --- !u!212 &212818456709017614
 SpriteRenderer:
   m_ObjectHideFlags: 1

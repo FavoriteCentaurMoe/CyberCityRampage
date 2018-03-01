@@ -23,7 +23,7 @@ public class DamageTextHandler : MonoBehaviour {
         switch(type)
         {
             case "Enemy":
-                Debug.Log("Enemy thing selected");
+                //Debug.Log("Enemy thing selected");
                 tempDamageText = Instantiate(dth.damageTextEnemy);
                 break;
             case "Player":

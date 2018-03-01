@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1097717821071142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.92, y: 0.22, z: 0}
+  m_LocalPosition: {x: 39.74, y: 3.85, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children:
   - {fileID: 4677157058061566}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  inRange: 0
+  inRange: 1
   stunned: 0
   knockBack: 0
   speed: 0
@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6ea38d02f19c54293d3d88297d1d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  currentHealth: 0
+  maxHealth: 10
+  currentHealth: 10
 --- !u!114 &114994516333175702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -177,7 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e9211bfcac447418158d7f77dcfb54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chase_player: {fileID: 0}
+  chase_player: {fileID: 114253241362832402}
+  shoot_player: {fileID: 0}
+  chasing: 1
 --- !u!212 &212027724484500614
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -212,7 +214,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300002, guid: fad511eafea824e4fa55500a9168c4a3, type: 3}
+  m_Sprite: {fileID: 21300004, guid: fad511eafea824e4fa55500a9168c4a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

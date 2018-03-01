@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WarriorController : MonoBehaviour {
+public class WarriorController : PlayerController {
     // this class needs to be abstracted later for utilization with other classes
     // class that utilizes the general Player Movement script 
     // set a speed for the player in the Start() 
 
-    public Animator anim;
-    public float maxHealth;
-    public float maxRage;
-    public float currentHealth;
-    public float currentRage;
-    public float attackSpeed;
-    public bool isBasicAttacking;
-    public PlayerMovement player_movement;
+   // public Animator anim;
+   //public float maxHealth;
+   // public float maxRage;
+   // public float currentHealth;
+   // public float currentRage;
+   // public float attackSpeed;
+   // public bool isBasicAttacking;
+   // public PlayerMovement player_movement;
 
+        //These are unique to the Warrior which is why is is HERE
     public BoxCollider2D attackRangeRight;
     public PolygonCollider2D cleaveRangeRight;
     public BoxCollider2D shieldBashRangeRight;
@@ -30,23 +31,23 @@ public class WarriorController : MonoBehaviour {
     private float berserkTime;
     private bool goingBerserk;
 
-    //player stats
-    public float strength;
-    public float intelligence;
-    public float luck;
+    ////player stats
+    //public float strength;
+    //public float intelligence;
+    //public float luck;
 
 	// Use this for initialization
 	void Start () {
-        anim = GetComponent<Animator>();
-        maxHealth = 100f;
-        maxRage = 100f;
-        currentHealth = maxHealth;
-        currentRage = 100f;
-        attackSpeed = 0.15f;
-        isBasicAttacking = false;
-        player_movement.speed = 5f;
-        
-        
+        //anim = GetComponent<Animator>();
+        //maxHealth = 100f;
+        //maxRage = 100f;
+        //currentHealth = maxHealth;
+        //currentRage = 100f;
+        //attackSpeed = 0.15f;
+        //isBasicAttacking = false;
+        //player_movement.speed = 5f;
+
+        base.Start();
 
         shieldBashCooldown = 0f;
         tauntCooldown = 0f;
@@ -56,7 +57,7 @@ public class WarriorController : MonoBehaviour {
         berserkTime = 0f;
         goingBerserk = false;
 
-        strength = 5f;
+        //strength = 5f;
 
 		
 	}
@@ -234,11 +235,11 @@ public class WarriorController : MonoBehaviour {
         }
     }
 
-    public void HurtPlayer(float damage)
-    {
-        DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Player");
-        currentHealth -= damage;
-    }
+    //public void HurtPlayer(float damage)
+    //{
+    //    DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Player");
+    //    currentHealth -= damage;
+    //}
 
     //public void OnCollisionEnter2D(Collision2D collision)
     //{
