@@ -16,7 +16,7 @@ public class DamageTextHandler : MonoBehaviour {
        
     }
 
-    public static void makeDamageText(string text, Transform location, float time, string type)
+    public static void makeDamageText(string text, Transform location, float time, string type)  //this is the function that players and enemies can call to create damage text wherever they desire 
     {
         dth.StartCoroutine("textOfDamage", time);
         DamageText tempDamageText = null;
@@ -39,7 +39,7 @@ public class DamageTextHandler : MonoBehaviour {
         tempDamageText.transform.position = screenPosition;
     }
 
-    IEnumerator textOfDamage(float time)
+    IEnumerator textOfDamage(float time) //this isn't working yet 
     { 
         yield return new WaitForSeconds(time);
        
@@ -48,7 +48,7 @@ public class DamageTextHandler : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        if (dth == null)
+        if (dth == null)  //This happens to the script always exists, like it is static 
         {
             dth = GameObject.FindGameObjectWithTag("GameController").GetComponent<DamageTextHandler>();
         }

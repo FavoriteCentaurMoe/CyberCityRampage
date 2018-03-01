@@ -8,7 +8,8 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        maxHealth = 100f; // set  high for testing
+        maxHealth = 10f; // set  high for testing
+        //Debug.Log("Start of an enemy");
         currentHealth = maxHealth;
 	}
 	
@@ -22,6 +23,7 @@ public class EnemyController : MonoBehaviour {
     public void HurtEnemy(float damage)
     {
         DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Enemy");
+        //Debug.Log("Ouch I was hit");
         currentHealth -= damage;
     }
 
@@ -29,6 +31,7 @@ public class EnemyController : MonoBehaviour {
     {
         if(currentHealth <= 0)
         {
+            //Debug.Log("Dead");
             Destroy(this.gameObject);
         }
     }
