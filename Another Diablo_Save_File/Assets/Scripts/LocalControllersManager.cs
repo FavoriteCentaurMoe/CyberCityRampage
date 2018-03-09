@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LocalControllersManager : MonoBehaviour {
     public string player1;
     public string player1Character;
+
     public string player2;
     public string player2Character;
     public string player3;
@@ -15,6 +16,17 @@ public class LocalControllersManager : MonoBehaviour {
     Scene current_scene;
     public List<int> plrsSet = new List<int>();
     public bool plr1Set, plr2Set, plr3Set, plr4Set;
+
+    private List<string> PlayerClass = new List<string> { "Warrior","SharpShooter"}; //Limited characters for now
+    private int p1ClassCounter;
+    private int p2ClassCounter;
+    private int p3ClassCounter;
+    private int p4ClassCounter;
+    public float p1ScrollTime;
+    public float p2ScrollTime;
+    public float p3ScrollTime;
+    public float p4ScrollTime;
+    //public enum Class {Warrior,Medic,SharpShooter,Mage};
 
 
     public LocalControllersManager LCM;
@@ -36,18 +48,19 @@ public class LocalControllersManager : MonoBehaviour {
             SetUpControllers();
             ChooseCharacter();
         }
-		
+       
 	}
 
     public void SetUpControllers()
     {
-        if (!plr1Set)
+        if (!plr1Set)  
         {
             if (Input.GetButton("Ctr 1 A Button") && !plrsSet.Contains(1))
             {
                 player1 = "Ctr 1 ";
                 plr1Set = true;
                 plrsSet.Add(1);
+                player1Character = PlayerClass[p1ClassCounter];  
             }
             else if(Input.GetButton("Ctr 2 A Button") && !plrsSet.Contains(2))
             {
@@ -154,13 +167,48 @@ public class LocalControllersManager : MonoBehaviour {
 
     }
 
+    public int changeCharacter(int Ccounter, int direction)
+    {
+        int newVal = Ccounter + direction;
+        int limit = PlayerClass.Count - 1;
+        if(newVal < 0)
+        {
+            newVal = limit;
+        }
+        else if (newVal > limit)
+        {
+            newVal = 0;
+        }
+        return newVal;
+    }
+
+
+
     public void ChooseCharacter()
     {
+        
         if (plr1Set)
         {
+            //float scrollValue = Input.GetAxis("Ctr 1 Left Joystick Horizontal");
+            float scrollValue = Input.GetAxis(player1 + "Left Joystick Horizontal");
+            if (scrollValue != 0.0f && p1ScrollTime <= Time.time)
+            {
+                p1ScrollTime = Time.time + 0.45f;
+                if (scrollValue > 0.01f)
+                {
+                    p1ClassCounter = changeCharacter(p1ClassCounter, 1);
+                }
+                else if (scrollValue < -0.01f)
+                {
+                    p1ClassCounter = changeCharacter(p1ClassCounter, -1);
+                }
+                player1Character = PlayerClass[p1ClassCounter];
+            }
+            /*
             if (Input.GetButton(player1 + "Y Button"))
             {
-                player1Character = "Warrior";
+                player1Character = Class[p1ClassCounter];
+                //player1Character = "Warrior";
             }
             else if (Input.GetButton(player1 + "X Button"))
             {
@@ -174,10 +222,28 @@ public class LocalControllersManager : MonoBehaviour {
             {
                 player1Character = "Mage";
             }
+            */
+            
         }
 
         if (plr2Set)
         {
+            float scrollValue = Input.GetAxis(player2+"Left Joystick Horizontal");            
+            if (scrollValue != 0.0f && p2ScrollTime <= Time.time)
+            {
+                p2ScrollTime = Time.time + 0.45f;
+                if (scrollValue > 0.01f)
+                {
+                    p2ClassCounter = changeCharacter(p2ClassCounter, 1);
+                }
+                else if (scrollValue < -0.01f)
+                {
+                    p2ClassCounter = changeCharacter(p2ClassCounter, -1);
+                }
+                player2Character = PlayerClass[p2ClassCounter];
+            }
+            
+            /*
             if (Input.GetButton(player2 + "Y Button"))
             {
                 player2Character = "Warrior";
@@ -194,10 +260,26 @@ public class LocalControllersManager : MonoBehaviour {
             {
                 player2Character = "Mage";
             }
+            */
         }
 
         if (plr3Set)
         {
+            float scrollValue = Input.GetAxis(player3 + "Left Joystick Horizontal");
+            if (scrollValue != 0.0f && p3ScrollTime <= Time.time)
+            {
+                p3ScrollTime = Time.time + 0.45f;
+                if (scrollValue > 0.01f)
+                {
+                    p3ClassCounter = changeCharacter(p3ClassCounter, 1);
+                }
+                else if (scrollValue < -0.01f)
+                {
+                    p3ClassCounter = changeCharacter(p3ClassCounter, -1);
+                }
+                player3Character = PlayerClass[p3ClassCounter];
+            }
+            /*
             if (Input.GetButton(player3 + "Y Button"))
             {
                 player3Character = "Warrior";
@@ -214,10 +296,26 @@ public class LocalControllersManager : MonoBehaviour {
             {
                 player3Character = "Mage";
             }
+            */
         }
 
         if (plr4Set)
         {
+            float scrollValue = Input.GetAxis(player4 + "Left Joystick Horizontal");
+            if (scrollValue != 0.0f && p4ScrollTime <= Time.time)
+            {
+                p4ScrollTime = Time.time + 0.45f;
+                if (scrollValue > 0.01f)
+                {
+                    p4ClassCounter = changeCharacter(p4ClassCounter, 1);
+                }
+                else if (scrollValue < -0.01f)
+                {
+                    p4ClassCounter = changeCharacter(p4ClassCounter, -1);
+                }
+                player4Character = PlayerClass[p4ClassCounter];
+            }
+            /*
             if (Input.GetButton(player4 + "Y Button"))
             {
                 player4Character = "Warrior";
@@ -234,6 +332,7 @@ public class LocalControllersManager : MonoBehaviour {
             {
                 player4Character = "Mage";
             }
+            */
         }
     }
 

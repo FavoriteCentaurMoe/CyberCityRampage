@@ -92,7 +92,7 @@ public class ChasePlayer : MonoBehaviour {
 
     public IEnumerator KnockBack()
     {
-        Debug.Log(attackFrom * knockBackDistance);
+        //Debug.Log(attackFrom * knockBackDistance);
         transform.position = Vector3.Lerp(transform.position, transform.position + new Vector3 (attackFrom * knockBackDistance,0,0), 0.5f);
         yield return new WaitForSeconds(0.1f);
         knockBack = false;
