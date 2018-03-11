@@ -8,7 +8,7 @@ public class ChasePlayer : MonoBehaviour {
     public bool inRange;
     public bool stunned;
     public bool knockBack;
-    public float speed;
+    public float speed = 4f;
     public float damage;
     public float stunTime;
     public Transform defaultPosition;
@@ -19,8 +19,8 @@ public class ChasePlayer : MonoBehaviour {
     public Animator anim;
 
 	// Use this for initialization
-	void Start () {
-        speed = 4f;
+	public void Start () {
+        //speed = 4f;
         damage = 5f;
         stunned = false;
         knockBack = false;
