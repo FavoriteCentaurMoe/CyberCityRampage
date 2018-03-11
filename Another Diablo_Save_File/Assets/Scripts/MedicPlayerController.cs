@@ -80,19 +80,28 @@ public class MedicPlayerController : PlayerController {
             if (Input.GetButton(player_movement.controller_num + "B Button"))
             {
                 Debug.Log("Jump button was pressed");
-                jumping = true;
+                //jumping = true;
+                moveSpeed = player_movement.speed * 3;
                 rise = true;
-
                 jumpTime = Time.time + 1f;
+                //multiShotCooldown = Time.time + 3f;
+                //Debug.Log("INVISIBLE TIME");
+                BoxCollider2D boxx = gameObject.GetComponent<BoxCollider2D>();
+                boxx.isTrigger = true;
+                transform.tag = "Invisible";
+                yield return new WaitForSeconds(0.4f);
+                boxx.isTrigger = false;
+                transform.tag = "Player";
+                //Debug.Log("NO MORE INVISIBLE");
 
-                yield return new WaitForSeconds(1f);
-                jumpHeight = -jumpHeight;
+                //yield return new WaitForSeconds(1f);
+                //jumpHeight = -jumpHeight;
                 //moveSpeed = -moveSpeed;
-                yield return new WaitForSeconds(1f);
-                jumpHeight = -jumpHeight;
+               //ield return new WaitForSeconds(1f);
+                //jumpHeight = -jumpHeight;
                 ///moveSpeed = -moveSpeed;
                 rise = false;
-                jumping = false;
+                //jumping = false;
 
             }
         }
@@ -173,14 +182,14 @@ public class MedicPlayerController : PlayerController {
             //This is for right
             Debug.Log("Jumping right");
             transform.position += (Vector3.right * moveSpeed * Time.deltaTime);
-            transform.position += (Vector3.up * jumpHeight * Time.deltaTime);
+            //transform.position += (Vector3.up * jumpHeight * Time.deltaTime);
         }
         else
         {
             //For left 
             Debug.Log("Jumping left");
             transform.position += (Vector3.left * moveSpeed * Time.deltaTime);
-            transform.position += (Vector3.up * jumpHeight * Time.deltaTime);
+            //transform.position += (Vector3.up * jumpHeight * Time.deltaTime);
         }
     }
 

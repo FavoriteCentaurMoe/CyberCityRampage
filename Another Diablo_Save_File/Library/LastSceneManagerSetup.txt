@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ControllerMapping.unity
+- path: Assets/Scenes/Nikhil works in his own secluded area.unity
   isLoaded: 1
   isActive: 1
