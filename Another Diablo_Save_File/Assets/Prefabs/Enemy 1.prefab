@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 61993092128008734}
   - component: {fileID: 114774610954740154}
   - component: {fileID: 95268910408050594}
+  - component: {fileID: 114938511751870532}
   m_Layer: 8
   m_Name: Enemy 1
   m_TagString: Enemy
@@ -171,6 +172,34 @@ MonoBehaviour:
   currentHealth: 0
   chase_player: {fileID: 114253241362832402}
   shoot_player: {fileID: 0}
+  boss: {fileID: 0}
+--- !u!114 &114938511751870532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1097717821071142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd1ec45dd78d754d8c468856dbb19c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  inRange: 0
+  stunned: 0
+  knockBack: 0
+  damage: 0
+  stunTime: 0
+  defaultPosition: {fileID: 0}
+  attackFrom: 0
+  knockBackDistance: 0
+  leftRight: 0
+  hurt: 0
+  anim: {fileID: 0}
+  updateRate: 2
+  speed: 30
+  pathIsEnded: 0
+  nextWaypointDistance: 3
 --- !u!114 &114994516333175702
 MonoBehaviour:
   m_ObjectHideFlags: 1
