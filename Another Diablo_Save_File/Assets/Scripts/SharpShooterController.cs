@@ -40,8 +40,16 @@ public class SharpShooterController : PlayerController {
         maxEnergy = 100f;
         currentEnergy = maxEnergy;
         player_movement.speed = 30f;
-        attackSpeed = 0.075f;
+        attackSpeed = 0.1f;
         strength = 5f;
+    }
+
+    public override void HurtPlayer(float damage)
+    {
+            GetComponent<SpriteRenderer>().color = Color.magenta;
+            DamageTextHandler.makeDamageText(damage.ToString(), transform, 1f, "Player");
+            currentHealth -= damage;
+            StartCoroutine(HurtTime());
     }
 
     private void EnergyCap() // increases energy always and caps it 
@@ -222,16 +230,14 @@ public class SharpShooterController : PlayerController {
         bully.friendly = true;
     }
 
-    public void WhileInvisible() // change alpha value while invisible, this is where we could add the speed boost
+    public IEnumerator WhileInvisible() // change alpha value while invisible, this is where we could add the speed boost
     {
         if(gameObject.tag == "Invisible")
         {
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
             player_movement.speed = 35f;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            yield return new WaitForSeconds(2f);
+            GetComponent<SpriteRenderer>().color = Color.white;
             player_movement.speed = 30f;
         }
     }
@@ -242,7 +248,7 @@ public class SharpShooterController : PlayerController {
     void Update () {
         base.StatsCap();
         EnergyCap();
-        WhileInvisible();
+        StartCoroutine(WhileInvisible());
         StartCoroutine(BasicAttack());
         StartCoroutine(Ultimate());
         StartCoroutine(MultiShot());

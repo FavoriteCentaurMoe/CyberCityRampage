@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class ShootPlayer : MonoBehaviour {
 
@@ -22,14 +23,29 @@ public class ShootPlayer : MonoBehaviour {
     public bool stunned;
     public float stunTime;
 
-    public float speed;
+    //public float speed;
     public float damage;
     public float fireRate;
     public float chaseRange;
     float timeToFire;
     public bool hurt;
     public Animator anim;
-   
+
+    // NEW STUFF FOR PATHFINDING
+    public float updateRate = 2f;
+
+    private Seeker seeker;
+    private Rigidbody2D rb;
+    public Path path;
+
+    public float speed = 2f;
+
+    public bool pathIsEnded = false;
+
+    public float nextWaypointDistance = 3f;
+
+    private int currentWaypoint = 0;
+
 
 
 
@@ -54,8 +70,35 @@ public class ShootPlayer : MonoBehaviour {
     void Start () {
         ATTACK = false;
         anim = GetComponent<Animator>();
+
+        //pathfinding stuff
+        seeker = GetComponent<Seeker>();
+        rb = GetComponent<Rigidbody2D>();
+        player = defaultPosition;
+        seeker.StartPath(transform.position, player.position, OnPathComplete);
+
+        StartCoroutine(UpdatePath());
     }
-	
+
+    public IEnumerator UpdatePath()
+    {
+        if (player == null)
+        {
+            player = defaultPosition;
+        }
+        seeker.StartPath(transform.position, player.position, OnPathComplete);
+        yield return new WaitForSeconds(1f / updateRate);
+        StartCoroutine(UpdatePath());
+    }
+    public void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
+    }
+
     void shoot()
     {
         GameObject thing = Instantiate(bullet, aimingThing.transform.position, aimingThing.transform.rotation);
@@ -80,30 +123,44 @@ public class ShootPlayer : MonoBehaviour {
             StartCoroutine(Stunned());
         }
         float distance = Vector3.Distance(defaultPosition.position, transform.position);
-        if (inRange && player != null && (distance < chaseRange))
+        if (inRange  && (distance < chaseRange))
         {
             ATTACK = true;
             anim.SetBool("Shooting", true);
             //Debug.Log("The current situation warrants movement");
             Vector3 direction = player.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 0;
-            FaceDirection(angle);
+            //FaceDirection(angle);
             aimingThing.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.position += (player.position - transform.position).normalized * speed * Time.deltaTime;
+
         }
-        else
+        else // default
         {
-            //remeber that is should be <ath.Rad2DEg  + 270 kiddo
             ATTACK = false;
             anim.SetBool("Shooting", false);
-            //Debug.Log("Don't move kiddo");
             Vector3 direction = defaultPosition.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // changed to 0 - jared
-            FaceDirection(angle);
             aimingThing.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.position += (defaultPosition.position - transform.position).normalized * speed * Time.deltaTime;
+            //pathfinding
+            if (currentWaypoint >= path.vectorPath.Count)
+            {
+                if (pathIsEnded)
+                    return;
+                pathIsEnded = true;
+                return;
+            }
+            pathIsEnded = false;
+            Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+            dir *= speed * Time.deltaTime;
+            FaceDirection(dir);
+            transform.position += dir * speed;
+            float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+            if (dist < nextWaypointDistance)
+            {
+                currentWaypoint++;
+                return;
+            }
         }
 
 
@@ -141,15 +198,26 @@ public class ShootPlayer : MonoBehaviour {
         knockBack = false;
     }
 
-    public void FaceDirection(float direction)
+    //public void FaceDirection(float direction)
+    //{
+    //    if (direction > 90f || direction < -90f)
+    //    {
+    //        transform.localScale = new Vector3(-10, 10, 1);
+    //    }
+    //    else
+    //    {
+    //        transform.localScale = new Vector3(10, 10, 1);
+    //    }
+    //}
+    public void FaceDirection(Vector3 direction)
     {
-        if (direction > 90f || direction < -90f)
+        if (direction.x > 0)
         {
-            transform.localScale = new Vector3(-10, 10, 1);
+            transform.localScale = new Vector3(10, 10, 1);
         }
         else
         {
-            transform.localScale = new Vector3(10, 10, 1);
+            transform.localScale = new Vector3(-10, 10, 1);
         }
     }
 

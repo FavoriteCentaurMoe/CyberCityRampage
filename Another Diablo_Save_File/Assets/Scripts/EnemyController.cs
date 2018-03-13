@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
-    public float maxHealth;
+    public float maxHealth = 50f;
     public float currentHealth;
 
     private float forHowLong;
@@ -11,11 +11,12 @@ public class EnemyController : MonoBehaviour {
 
     public ChasePlayer chase_player;
     public ShootPlayer shoot_player;
+    public BossScript boss;
 
 
 	// Use this for initialization
 	void Start () {
-        maxHealth = 50f; // set  high for testing
+        //maxHealth = 50f; // set  high for testing
         //Debug.Log("Start of an enemy");
         currentHealth = maxHealth;
 	}
@@ -27,7 +28,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 
-    public void HurtEnemy(float damage)
+    public virtual void HurtEnemy(float damage)
     {
 
         DamageTextHandler.makeDamageText(damage.ToString(), transform,1f,"Enemy");
@@ -39,6 +40,10 @@ public class EnemyController : MonoBehaviour {
         {
             //Debug.Log("hey i got hurt");
             shoot_player.hurt = true;
+        }
+        else if(boss != null)
+        {
+            boss.hurt = true;
         }
         //Debug.Log("Ouch I was hit");
         currentHealth -= damage;
@@ -88,8 +93,11 @@ public class EnemyController : MonoBehaviour {
     {
         if(currentHealth <= 0)
         {
-            //Debug.Log("Dead");
-            Destroy(this.gameObject);
+            if (shoot_player || chase_player)
+            {
+                //Debug.Log("Dead");
+                Destroy(this.gameObject);
+            }
         }
     }
 }

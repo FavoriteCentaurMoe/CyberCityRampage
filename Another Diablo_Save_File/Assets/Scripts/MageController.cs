@@ -46,7 +46,7 @@ public class MageController : PlayerController
 
     private void EnergyCap() // increases energy always and caps it 
     {
-        currentEnergy += Time.deltaTime;
+        currentEnergy += Time.deltaTime * 2;
         if (currentEnergy > maxEnergy)
         {
             currentEnergy = maxEnergy;

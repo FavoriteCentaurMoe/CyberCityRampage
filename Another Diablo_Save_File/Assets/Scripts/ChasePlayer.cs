@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class ChasePlayer : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class ChasePlayer : MonoBehaviour {
     public bool inRange;
     public bool stunned;
     public bool knockBack;
-    public float speed;
+    //public float speed;
     public float damage;
     public float stunTime;
     public Transform defaultPosition;
@@ -18,14 +19,57 @@ public class ChasePlayer : MonoBehaviour {
     public bool hurt;
     public Animator anim;
 
+    // NEW STUFF FOR PATHFINDING
+    public float updateRate = 2f;
+
+    private Seeker seeker;
+    private Rigidbody2D rb;
+    public Path path;
+
+    public float speed = 30f;
+
+    public bool pathIsEnded = false;
+
+    public float nextWaypointDistance = 3f;
+
+    private int currentWaypoint = 0;
+
 	// Use this for initialization
 	public void Start () {
-        speed = 4f;
+        //speed = 4f;
         damage = 5f;
         stunned = false;
         knockBack = false;
         anim = GetComponent<Animator>();
+
+        // pathfinding stuff
+        seeker = GetComponent<Seeker>();
+        rb = GetComponent<Rigidbody2D>();
+        player = defaultPosition;
+        seeker.StartPath(transform.position, player.position, OnPathComplete);
+
+        StartCoroutine(UpdatePath());
 	}
+
+    public IEnumerator UpdatePath()
+    {
+        if(player == null)
+        {
+            player = defaultPosition;
+        }
+        seeker.StartPath(transform.position, player.position, OnPathComplete);
+        yield return new WaitForSeconds(1f / updateRate);
+        StartCoroutine(UpdatePath());
+    }
+    public void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+            currentWaypoint = 0;
+        }
+    }
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,26 +88,53 @@ public class ChasePlayer : MonoBehaviour {
         //else if (!stunned)
         else
         {
-            if (inRange && player != null)
+            if (inRange && player.GetComponent<PlayerController>() != null)
             {
                 anim.SetBool("Chasing", true);
-                Vector3 direction = player.position - transform.position;
-                //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 270;
-                //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                Vector3 go = (player.position - transform.position).normalized;
-                FaceDirection(go);
-                transform.position += go * speed * Time.deltaTime;
+                if (currentWaypoint >= path.vectorPath.Count)
+                {
+                    if (pathIsEnded)
+                        return;
+                    pathIsEnded = true;
+                    return;
+                }
+                pathIsEnded = false;
+                Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+                dir *= speed * Time.deltaTime;
+                FaceDirection(dir);
+                transform.position += dir * speed;
+                float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+                if (dist < nextWaypointDistance)
+                {
+                    currentWaypoint++;
+                    return;
+                }
             }
             else
             {
                 anim.SetBool("Chasing", false);
-                Vector3 direction = defaultPosition.position - transform.position;
-                //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 270;
-                //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                Vector3 go = (defaultPosition.position - transform.position).normalized;
-                FaceDirection(go);
-                transform.position +=  go * speed * Time.deltaTime;
+                if (currentWaypoint >= path.vectorPath.Count)
+                {
+                    if (pathIsEnded)
+                        return;
+                    pathIsEnded = true;
+                    return;
+                }
+                pathIsEnded = false;
+                Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
+                dir *= speed * Time.deltaTime;
+                FaceDirection(dir);
+                transform.position += dir * speed;
+                float dist = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
+                if (dist < nextWaypointDistance)
+                {
+                    currentWaypoint++;
+                    return;
+                }
             }
+
+
+
         }
 		
 	}

@@ -63,8 +63,10 @@ public class PlayerController : MonoBehaviour {
     public IEnumerator HurtTime()
     {
         hurt = true;
+        Debug.Log("turning magenta");
         GetComponent<SpriteRenderer>().color = Color.magenta;
         yield return new WaitForSeconds(0.25f);
+        Debug.Log("Back to white");
         if (GetComponent<WarriorController>() != null)
         {
             WarriorController warrior_controller;

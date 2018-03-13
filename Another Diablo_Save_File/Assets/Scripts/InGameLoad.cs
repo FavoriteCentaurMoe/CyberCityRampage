@@ -148,10 +148,96 @@ public class InGameLoad : MonoBehaviour {
         }
         main_cam.targets.Add(player3.transform);
         // add in the 4th
+        if (lcm.plr4Set)
+        {
+            if (lcm.player4Character == "Warrior")
+            {
+                player4 = Instantiate(Warrior, player4spawn);
+                player4.GetComponent<PlayerMovement>().controller_num = lcm.player4;
+                ui_controller.player4 = player4.GetComponent<PlayerController>();
+            }
+            else if (lcm.player4Character == "SharpShooter")
+            {
+                player4 = Instantiate(SharpShooter, player4spawn) as GameObject;
+                player4.GetComponent<PlayerMovement>().controller_num = lcm.player4;
+                ui_controller.player4 = player4.GetComponent<PlayerController>();
+            }
+            else if (lcm.player4Character == "Medic")
+            {
+                dog_character_4 = Instantiate(Dog, player4spawn);
+                player4 = Instantiate(Medic, player4spawn);
+                foreach (Transform child in player4.transform)
+                {
+                    if (child.gameObject.tag == "Dog Spot")
+                    {
+                        dog_character_4.GetComponent<DogScript>().owner = child.gameObject;
+                    }
+                }
+                player4.GetComponent<MedicPlayerController>().dog = dog_character_4.GetComponent<DogScript>();
+                player4.GetComponent<PlayerMovement>().controller_num = lcm.player4;
+                ui_controller.player4 = player4.GetComponent<PlayerController>();
+            }
+            else
+            {
+                player4 = Instantiate(Mage, player4spawn);
+                player4.GetComponent<PlayerMovement>().controller_num = lcm.player4;
+                ui_controller.player4 = player4.GetComponent<PlayerController>();
+            }
+        }
+        main_cam.targets.Add(player4.transform);
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+    
+        if (main_cam.targets.Contains(player1.transform))// player still alive?
+        {
+            // could put the ability cooldowns here
+            if (player1.GetComponent<PlayerController>().currentHealth == 0) // died just now?
+            {
+                main_cam.targets.Remove(player1.transform); // remove from cam
+                if(player1.GetComponent<MedicPlayerController>() != null) // if medic
+                {
+                    Destroy(dog_character_1); // dog needs to leave as well
+                }
+            }
+        }
+
+        if (main_cam.targets.Contains(player2.transform))
+        {
+            if (player2.GetComponent<PlayerController>().currentHealth == 0)
+            {
+                main_cam.targets.Remove(player2.transform);
+                if (player2.GetComponent<MedicPlayerController>() != null)
+                {
+                    Destroy(dog_character_2);
+                }
+            }
+        }
+
+        if (main_cam.targets.Contains(player3.transform))
+        {
+            if (player3.GetComponent<PlayerController>().currentHealth == 0)
+            {
+                main_cam.targets.Remove(player3.transform);
+                if (player3.GetComponent<MedicPlayerController>() != null)
+                {
+                    Destroy(dog_character_3);
+                }
+            }
+        }
+
+        if (main_cam.targets.Contains(player4.transform))
+        {
+            if (player4.GetComponent<PlayerController>().currentHealth == 0)
+            {
+                main_cam.targets.Remove(player4.transform);
+                if (player4.GetComponent<MedicPlayerController>() != null)
+                {
+                    Destroy(dog_character_4);
+                }
+            }
+        }
+
+    }
 }

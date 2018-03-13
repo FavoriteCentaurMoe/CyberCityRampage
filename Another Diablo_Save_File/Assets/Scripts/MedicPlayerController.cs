@@ -15,6 +15,9 @@ public class MedicPlayerController : PlayerController {
     public float jumpHeight;
     public float moveSpeed;
 
+    public float maxEnergy;
+    public float currentEnergy;
+
     public GameObject slowGrenade;
     public GameObject healSpot;
 
@@ -22,31 +25,36 @@ public class MedicPlayerController : PlayerController {
     public bool rise;
     public bool jumping;
 
-    //private void StatsCap()
-    //{
 
-    //    if (currentHealth > maxHealth)
-    //    {
-    //        currentHealth = maxHealth;
-    //    }
-    //    if (currentHealth < 0f)
-    //    {
-    //        currentHealth = 0f;
-    //        Debug.Log("You DIED");
-    //    }
-    //}
+
+    private void EnergyCap() // increases energy always and caps it 
+    {
+        currentEnergy += Time.deltaTime * 2;
+        if (currentEnergy > maxEnergy)
+        {
+            currentEnergy = maxEnergy;
+        }
+        if (currentEnergy < 0f)
+        {
+            currentEnergy = 0f;
+        }
+    }
 
     private IEnumerator DogHeal()
     {
         if (dogHealTime <= Time.time)
         {
-            if (Input.GetButton(player_movement.controller_num + "A Button"))
+            if (currentEnergy > 10)
             {
-                anim.SetBool("Heal", true);
-                dog.VentureForth();
-                dogHealTime = Time.time + 3f;
-                yield return new WaitForSeconds(0.6f);
-                anim.SetBool("Heal", false);
+                if (Input.GetButton(player_movement.controller_num + "A Button"))
+                {
+                    currentEnergy -= 10f;
+                    anim.SetBool("Heal", true);
+                    dog.VentureForth();
+                    dogHealTime = Time.time + 3f;
+                    yield return new WaitForSeconds(0.6f);
+                    anim.SetBool("Heal", false);
+                }
             }
         }
     }
@@ -55,8 +63,10 @@ public class MedicPlayerController : PlayerController {
     {
         if(!jumping)
         {
+            GetComponent<SpriteRenderer>().color = Color.magenta;
             DamageTextHandler.makeDamageText(damage.ToString(), transform, 1f, "Player");
             currentHealth -= damage;
+            StartCoroutine(HurtTime());
         }
     }
 
@@ -64,16 +74,20 @@ public class MedicPlayerController : PlayerController {
     {
         if (ultimateTime <= Time.time)
         {
-            if (Input.GetAxis(player_movement.controller_num + "Left Trigger") == 1)
+            if (currentEnergy > 5)
             {
-                anim.SetBool("Ultimate", true);
-                ultimateTime = Time.time + 5f;
-                float height = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y;
-                Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 2));
-                yield return new WaitForSeconds(1.5f);
-                Instantiate(healSpot, spot, transform.rotation);
-                //yield return new WaitForSeconds(0.2f);
-                anim.SetBool("Ultimate", false);
+                if (Input.GetAxis(player_movement.controller_num + "Left Trigger") == 1)
+                {
+                    currentEnergy -= 5f;
+                    anim.SetBool("Ultimate", true);
+                    ultimateTime = Time.time + 5f;
+                    float height = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y;
+                    Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 2));
+                    yield return new WaitForSeconds(1.5f);
+                    Instantiate(healSpot, spot, transform.rotation);
+                    //yield return new WaitForSeconds(0.2f);
+                    anim.SetBool("Ultimate", false);
+                }
             }
         }
     }
@@ -84,29 +98,36 @@ public class MedicPlayerController : PlayerController {
         {
             if (Input.GetButton(player_movement.controller_num + "B Button"))
             {
-                anim.SetBool("Jump", true);
-                Debug.Log("Jump button was pressed");
-                //yield return new WaitForSeconds(0.3f);
+                if (currentEnergy > 20)
+                {
+                    jumpTime = Time.time + 5f;
+                    currentEnergy -= 20f;
+                    anim.SetBool("Jump", true);
+                    Debug.Log("Jump button was pressed");
+                    //yield return new WaitForSeconds(0.3f);
 
-                yield return new WaitForSeconds(0.5f);
-                moveSpeed = player_movement.speed * 3;
-                //jumping = true;
-                rise = true;
+                    yield return new WaitForSeconds(0.5f);
+                    moveSpeed = player_movement.speed * 3;
+                    //jumping = true;
+                    rise = true;
 
-                jumpTime = Time.time + 1f;
-                BoxCollider2D boxx = gameObject.GetComponent<BoxCollider2D>();
-                //yield return new WaitForSeconds(0.1f);
-                boxx.isTrigger = true;
-                transform.tag = "Invisible";
-                yield return new WaitForSeconds(0.6f);
-                boxx.isTrigger = false;
-                transform.tag = "Player";
-                yield return new WaitForSeconds(0.4f);
-                //jumpHeight = -jumpHeight;
-                ///moveSpeed = -moveSpeed;
-                rise = false;
-                //jumping = false;
-                anim.SetBool("Jump", false);
+                   
+
+                    Debug.Log("here maybe?");
+                    BoxCollider2D boxx = gameObject.GetComponent<BoxCollider2D>();
+                    //yield return new WaitForSeconds(0.1f);
+                    boxx.isTrigger = true;
+                    transform.tag = "Invisible";
+                    yield return new WaitForSeconds(0.6f);
+                    boxx.isTrigger = false;
+                    transform.tag = "Player";
+                    yield return new WaitForSeconds(0.4f);
+                    //jumpHeight = -jumpHeight;
+                    ///moveSpeed = -moveSpeed;
+                    rise = false;
+                    //jumping = false;
+                    anim.SetBool("Jump", false);
+                }
             }
         }
     }
@@ -115,18 +136,22 @@ public class MedicPlayerController : PlayerController {
     {
         if (grenadeTime <= Time.time)
         {
-            if (Input.GetButton(player_movement.controller_num + "Y Button"))
+            if (currentEnergy > 15)
             {
-                anim.SetBool("SlowGrenade", true);
-                Debug.Log("Grenade button was pressed");
-                grenadeTime = Time.time + 3f;
-                yield return new WaitForSeconds(1.5f);
-                GameObject gren = Instantiate(slowGrenade, transform.position, transform.rotation);
-                GrenadeScript gre = gren.GetComponent<GrenadeScript>();
-                gre.lastDirection = player_movement.lastDirection;
+                if (Input.GetButton(player_movement.controller_num + "Y Button"))
+                {
+                    currentEnergy -= 15f;
+                    anim.SetBool("SlowGrenade", true);
+                    Debug.Log("Grenade button was pressed");
+                    grenadeTime = Time.time + 3f;
+                    yield return new WaitForSeconds(1.5f);
+                    GameObject gren = Instantiate(slowGrenade, transform.position, transform.rotation);
+                    GrenadeScript gre = gren.GetComponent<GrenadeScript>();
+                    gre.lastDirection = player_movement.lastDirection;
 
-                yield return new WaitForSeconds(1f);
-                anim.SetBool("SlowGrenade", false);
+                    yield return new WaitForSeconds(1f);
+                    anim.SetBool("SlowGrenade", false);
+                }
             }
         }
     }
@@ -172,6 +197,8 @@ public class MedicPlayerController : PlayerController {
         anim = GetComponent<Animator>();
         maxHealth = 50f;
         currentHealth = maxHealth;
+        maxEnergy = 100f;
+        currentEnergy = maxEnergy;
         player_movement.speed = 15f;
         attackSpeed = 0.15f;
         strength = 5f;
@@ -198,6 +225,7 @@ public class MedicPlayerController : PlayerController {
             transform.position += (Vector3.left * moveSpeed * Time.deltaTime);
             //transform.position += (Vector3.up * jumpHeight * Time.deltaTime);
         }
+        
     }
     void DirectionToDog()
     {
@@ -212,7 +240,8 @@ public class MedicPlayerController : PlayerController {
     }
 
 	void Update () {
-        StatsCap();
+        base.StatsCap();
+        EnergyCap();
         StartCoroutine(DogHeal());
         StartCoroutine(Jump());
         StartCoroutine(SlowGrenade());

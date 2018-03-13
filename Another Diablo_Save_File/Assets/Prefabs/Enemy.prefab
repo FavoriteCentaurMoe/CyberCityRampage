@@ -25,13 +25,14 @@ GameObject:
   - component: {fileID: 95268910408050594}
   - component: {fileID: 114261647150296822}
   - component: {fileID: 50096412183661000}
+  - component: {fileID: 114486719090352126}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1638520946074050
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1097717821071142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -485.3, y: -123.5, z: 0}
+  m_LocalPosition: {x: -507.9, y: 14.6, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 4677157058061566}
@@ -168,7 +169,6 @@ MonoBehaviour:
   inRange: 0
   stunned: 0
   knockBack: 0
-  speed: 0
   damage: 0
   stunTime: 0
   defaultPosition: {fileID: 0}
@@ -177,6 +177,36 @@ MonoBehaviour:
   leftRight: 0
   hurt: 0
   anim: {fileID: 0}
+  updateRate: 2
+  speed: 3
+  pathIsEnded: 0
+  nextWaypointDistance: 3
+--- !u!114 &114486719090352126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1097717821071142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask: -1
 --- !u!114 &114774610954740154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6ea38d02f19c54293d3d88297d1d11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 40
   currentHealth: 0
   chase_player: {fileID: 114261647150296822}
   shoot_player: {fileID: 0}

@@ -137,7 +137,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.022683024, y: 0.003780976}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -148,7 +148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.71875, y: 0.90625}
+  m_Size: {x: 0.44652706, y: 0.68696094}
   m_EdgeRadius: 0
 --- !u!95 &95091925642317072
 Animator:
@@ -191,12 +191,14 @@ MonoBehaviour:
   aimer: {fileID: 0}
   dog: {fileID: 0}
   dogHealTime: 1
-  jumpTime: 2
+  jumpTime: 0
   grenadeTime: 2
   ultimateTime: 0
   basicAttackTime: 0
   jumpHeight: 10
   moveSpeed: 0
+  maxEnergy: 0
+  currentEnergy: 0
   slowGrenade: {fileID: 1199090375600846, guid: 1d7cce838346999479808437167764fd,
     type: 2}
   healSpot: {fileID: 1560782795039600, guid: 36cad1e2c701ea1409f0ac208ee4e51c, type: 2}

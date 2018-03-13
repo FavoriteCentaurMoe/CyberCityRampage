@@ -47,10 +47,12 @@ public class AggroRange : MonoBehaviour {
         {
             if(chasing)
             {
+                chase_player.inRange = false;
                 chase_player.player = null;
             }
             else
             {
+                shoot_player.inRange = false;
                 shoot_player.player = null;
             }
 
