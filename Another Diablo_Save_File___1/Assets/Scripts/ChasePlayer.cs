@@ -18,6 +18,7 @@ public class ChasePlayer : MonoBehaviour {
     public float leftRight;
     public bool hurt;
     public Animator anim;
+    public AudioSource hurt_sound;
 
     // NEW STUFF FOR PATHFINDING
     public float updateRate = 2f;
@@ -184,6 +185,7 @@ public class ChasePlayer : MonoBehaviour {
     public IEnumerator Hurt()
     {
         anim.SetBool("Hurt", true);
+        hurt_sound.Play();
         yield return new WaitForSeconds(0.01f);
         anim.SetBool("Hurt", false);
         hurt = false;

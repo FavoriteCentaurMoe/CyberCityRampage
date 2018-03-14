@@ -132,10 +132,11 @@ public class DogScript : MonoBehaviour {
                 rig.transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y);
             }
         }
-        else if(Vector3.Distance(transform.position, owner.transform.position) <  1)
+        else if(Vector3.Distance(transform.position, owner.transform.position) <  1)//for the dog to sit
         {
             //StartCoroutine(Sit());
             anim.SetBool("Idle", true);
+            // make the dog face whichever way the player is facing? 
         }
         else
         {

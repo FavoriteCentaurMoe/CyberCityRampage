@@ -31,17 +31,24 @@ public class WarriorController : PlayerController {
     private float berserkTime;
     public bool goingBerserk;
 
+    public AudioSource basic_attack_sound;
+    public AudioSource cleave_sound;
+    public AudioSource taunt_sound;
+    public AudioSource shield_bash_sound;
+    public AudioSource berserker_sound;
+    public AudioSource hurt_sound;
+
     //player stats
     //public float strength;
     //public float intelligence;
     //public float luck;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         base.Start();
         anim = GetComponent<Animator>();
-        maxHealth = 100f;
-        maxRage = 100f;
+        maxHealth = 150f;
+        maxRage = 150f;
         currentHealth = maxHealth;
         //currentRage = 100f;
         attackSpeed = 0.15f;
@@ -76,6 +83,16 @@ public class WarriorController : PlayerController {
 
 
     }
+
+    public override void HurtPlayer(float damage)
+    {
+            //GetComponent<SpriteRenderer>().color = Color.magenta;
+            DamageTextHandler.makeDamageText(damage.ToString(), transform, 1f, "Player");
+            hurt_sound.Play();
+            currentHealth -= damage;
+            StartCoroutine(HurtTime());
+        
+    }
     private void WhileBerserk()
     {
         if (goingBerserk)
@@ -94,6 +111,7 @@ public class WarriorController : PlayerController {
                 attackSpeed = 0f;
                 currentRage += 5 * Time.deltaTime;
                 strength = 10f;
+                currentHealth += 3 * Time.deltaTime;
                 
             }
         }
@@ -108,6 +126,7 @@ public class WarriorController : PlayerController {
             {
                 anim.SetBool("isBasicAttacking", true);
                 isBasicAttacking = true;
+                basic_attack_sound.Play();
                 //Debug.Log("basic attack");
                 yield return new WaitForSeconds(0.15f);
                 attackRangeRight.gameObject.SetActive(true);
@@ -125,14 +144,15 @@ public class WarriorController : PlayerController {
     }
     private IEnumerator ShieldBash() //mobility skill: that knocks back and stuns if hits a wall.  cost 25 rage, cooldown 5 seconds
     {
-        if(currentRage > 25f) // if you have enough rage to use this skill
+        if(currentRage > 15f) // if you have enough rage to use this skill
         {
             if (shieldBashCooldown <= Time.time) // if cooldown is 0
             {
                 if (Input.GetButton(player_movement.controller_num + "B Button"))
                 {
                     anim.SetBool("ShieldBash", true);
-                    currentRage -= 25f;
+                    shield_bash_sound.Play();
+                    currentRage -= 15f;
                     shieldBashCooldown = Time.time + 5f; // set the next time that this skill can be used to the current time plus the cooldown time
                     Debug.Log("shield bash");
                     player_movement.speed = 30f;
@@ -151,14 +171,15 @@ public class WarriorController : PlayerController {
     }
     private IEnumerator Taunt() // utility skill: AOE taunt around the player.   cost 35, cooldown 7 seconds
     {
-        if (currentRage > 35f) // if you have enough rage to use this skill
+        if (currentRage > 10f) // if you have enough rage to use this skill
         {
             if (tauntCooldown <= Time.time) // if cooldown is 0
             {
                 if (Input.GetButton(player_movement.controller_num + "Y Button"))
                 {
                     anim.SetBool("Taunt", true);
-                    currentRage -= 35f;
+                    taunt_sound.Play();
+                    currentRage -= 10f;
                     Debug.Log("Taunt");
                     tauntCooldown = Time.time + 7f; // set the next time that this skill can be used to the current time plus the cooldown time
                     tauntRange.gameObject.SetActive(true);
@@ -173,14 +194,15 @@ public class WarriorController : PlayerController {
     }
     private IEnumerator Cleave() // some time of AOE damage around the player.  cost 15, cooldown 3 seconds
     {
-        if (currentRage > 15f) // if you have enough rage to use this skill
+        if (currentRage > 10f) // if you have enough rage to use this skill
         {
             if (cleaveCooldown <= Time.time) // if cooldown is 0
             {
                 if (Input.GetButton(player_movement.controller_num + "A Button"))
                 {
                     anim.SetBool("Cleave", true);
-                    currentRage -= 15f;
+                    cleave_sound.Play();
+                    currentRage -= 10f;
                     cleaveCooldown = Time.time + 3f; // set the next time that this skill can be used to the current time plus the cooldown time
                     Debug.Log("Cleave");
                     yield return new WaitForSeconds(0.7f);
@@ -197,14 +219,15 @@ public class WarriorController : PlayerController {
         // skill when activated lasts for 20 seconds
     {
 
-        if (currentRage > 50f) // if you have enough rage to use this skill
+        if (currentRage > 30f) // if you have enough rage to use this skill
         {
             if (berserkerCooldown <= Time.time) // if cooldown is 0
             {
                 if (Input.GetAxis(player_movement.controller_num + "Left Trigger") == 1)
                 {
                     anim.SetBool("Berserker", true);
-                    currentRage -= 50f;
+                    berserker_sound.Play();
+                    currentRage -= 30f;
                     berserkerCooldown = Time.time + 30f; // set the next time that this skill can be used to the current time plus the cooldown time
                     berserkTime = Time.time + 20f;
                     goingBerserk = true;

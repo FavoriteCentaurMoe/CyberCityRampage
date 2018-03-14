@@ -30,6 +30,8 @@ public class ShootPlayer : MonoBehaviour {
     float timeToFire;
     public bool hurt;
     public Animator anim;
+    public AudioSource hurt_sound;
+    public AudioSource shoot_sound;
 
     // NEW STUFF FOR PATHFINDING
     public float updateRate = 2f;
@@ -101,6 +103,7 @@ public class ShootPlayer : MonoBehaviour {
 
     void shoot()
     {
+        shoot_sound.Play();
         GameObject thing = Instantiate(bullet, aimingThing.transform.position, aimingThing.transform.rotation);
         bully = thing.GetComponent<bulletScript>();
         bully.damage = damage;
@@ -126,6 +129,7 @@ public class ShootPlayer : MonoBehaviour {
         if (inRange  && (distance < chaseRange))
         {
             ATTACK = true;
+            
             anim.SetBool("Shooting", true);
             //Debug.Log("The current situation warrants movement");
             Vector3 direction = player.position - transform.position;
@@ -224,6 +228,7 @@ public class ShootPlayer : MonoBehaviour {
     public IEnumerator Hurt()
     {
         anim.SetBool("Hurt", true);
+        hurt_sound.Play();
         yield return new WaitForSeconds(0.01f);
         anim.SetBool("Hurt", false);
         hurt = false;

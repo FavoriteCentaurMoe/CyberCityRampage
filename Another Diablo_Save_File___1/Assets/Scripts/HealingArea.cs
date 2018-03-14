@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class HealingArea : MonoBehaviour {
 
-    public float lifetime = 3f;
-    public float healAmount = 4f;
-    public float healWaitTime = 2f;
+    public float lifetime = 5f;
+    public float healAmount = 5f;
+    public float healWaitTime = 1f;
     public float healTime = 0.0f;
 
     

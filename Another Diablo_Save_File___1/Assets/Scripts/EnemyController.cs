@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
     public float maxHealth = 50f;
@@ -12,6 +13,8 @@ public class EnemyController : MonoBehaviour {
     public ChasePlayer chase_player;
     public ShootPlayer shoot_player;
     public BossScript boss;
+
+    //public Image healthImage; // **wont do until ask nikhil
 
 
 	// Use this for initialization
@@ -47,6 +50,7 @@ public class EnemyController : MonoBehaviour {
         }
         //Debug.Log("Ouch I was hit");
         currentHealth -= damage;
+        //healthImage.fillAmount = currentHealth / maxHealth;  // **wont do until ask nikhil
     }
     public void StunEnemy(float stunTime)
     {

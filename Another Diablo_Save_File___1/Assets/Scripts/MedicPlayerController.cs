@@ -25,11 +25,17 @@ public class MedicPlayerController : PlayerController {
     public bool rise;
     public bool jumping;
 
-
+    public AudioSource basic_att;
+    public AudioSource jump;
+    public AudioSource throw_ball;
+    public AudioSource send_dog_h;
+    public AudioSource ult;
+    public AudioSource hurt;
 
     private void EnergyCap() // increases energy always and caps it 
     {
-        currentEnergy += Time.deltaTime * 2;
+        currentHealth += 2 * Time.deltaTime;
+        currentEnergy += Time.deltaTime;
         if (currentEnergy > maxEnergy)
         {
             currentEnergy = maxEnergy;
@@ -48,10 +54,12 @@ public class MedicPlayerController : PlayerController {
             {
                 if (Input.GetButton(player_movement.controller_num + "A Button"))
                 {
+                    dogHealTime = Time.time + 3f;
                     currentEnergy -= 10f;
                     anim.SetBool("Heal", true);
+                    send_dog_h.Play();
                     dog.VentureForth();
-                    dogHealTime = Time.time + 3f;
+                    
                     yield return new WaitForSeconds(0.6f);
                     anim.SetBool("Heal", false);
                 }
@@ -63,8 +71,9 @@ public class MedicPlayerController : PlayerController {
     {
         if(!jumping)
         {
-            GetComponent<SpriteRenderer>().color = Color.magenta;
+            //GetComponent<SpriteRenderer>().color = Color.magenta;
             DamageTextHandler.makeDamageText(damage.ToString(), transform, 1f, "Player");
+            hurt.Play();
             currentHealth -= damage;
             StartCoroutine(HurtTime());
         }
@@ -74,16 +83,19 @@ public class MedicPlayerController : PlayerController {
     {
         if (ultimateTime <= Time.time)
         {
-            if (currentEnergy > 5)
+            if (currentEnergy > 25)
             {
                 if (Input.GetAxis(player_movement.controller_num + "Left Trigger") == 1)
                 {
-                    currentEnergy -= 5f;
+                    ultimateTime = Time.time + 10f;
+                    currentEnergy -= 25f;
                     anim.SetBool("Ultimate", true);
-                    ultimateTime = Time.time + 5f;
+                    yield return new WaitForSeconds(0.5f);
+                    ult.Play();
+                    
+                    yield return new WaitForSeconds(1.0f);
                     float height = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y;
                     Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 2));
-                    yield return new WaitForSeconds(1.5f);
                     Instantiate(healSpot, spot, transform.rotation);
                     //yield return new WaitForSeconds(0.2f);
                     anim.SetBool("Ultimate", false);
@@ -98,11 +110,12 @@ public class MedicPlayerController : PlayerController {
         {
             if (Input.GetButton(player_movement.controller_num + "B Button"))
             {
-                if (currentEnergy > 20)
+                if (currentEnergy > 15)
                 {
                     jumpTime = Time.time + 5f;
-                    currentEnergy -= 20f;
+                    currentEnergy -= 15f;
                     anim.SetBool("Jump", true);
+                    jump.Play();
                     Debug.Log("Jump button was pressed");
                     //yield return new WaitForSeconds(0.3f);
 
@@ -140,11 +153,15 @@ public class MedicPlayerController : PlayerController {
             {
                 if (Input.GetButton(player_movement.controller_num + "Y Button"))
                 {
+                    grenadeTime = Time.time + 5f;
                     currentEnergy -= 15f;
                     anim.SetBool("SlowGrenade", true);
+                    yield return new WaitForSeconds(0.5f);
+                    throw_ball.Play();
+
                     Debug.Log("Grenade button was pressed");
-                    grenadeTime = Time.time + 3f;
-                    yield return new WaitForSeconds(1.5f);
+                    
+                    yield return new WaitForSeconds(1.0f);
                     GameObject gren = Instantiate(slowGrenade, transform.position, transform.rotation);
                     GrenadeScript gre = gren.GetComponent<GrenadeScript>();
                     gre.lastDirection = player_movement.lastDirection;
@@ -162,11 +179,16 @@ public class MedicPlayerController : PlayerController {
         {
             if (Input.GetButton(player_movement.controller_num + "X Button"))
             {
-                anim.SetBool("isBasicAttacking", true);
-                dog.Attack();
-                basicAttackTime = Time.time + 1f;
-                yield return new WaitForSeconds(1f);
-                anim.SetBool("isBasicAttacking", false);
+                if (Vector3.Distance(transform.position, dog.transform.position) < 5)
+                {
+                    basicAttackTime = Time.time + 1f;
+                    anim.SetBool("isBasicAttacking", true);
+                    basic_att.Play();
+                    dog.Attack();
+
+                    yield return new WaitForSeconds(1f);
+                    anim.SetBool("isBasicAttacking", false);
+                }
             }
         }
     }
@@ -248,7 +270,7 @@ public class MedicPlayerController : PlayerController {
         StartCoroutine(Ultimate());
         StartCoroutine(BasicAttack());
         DirectionToDog();
-
+        
         if (rise)
         {
             Rise();

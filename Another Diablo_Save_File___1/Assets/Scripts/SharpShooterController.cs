@@ -30,8 +30,14 @@ public class SharpShooterController : PlayerController {
     public float mineCooldown = 0f;
     public float invisibleCooldown = 0f;
     public float ultimateCooldown = 0f;
+    public AudioSource basic_attack_sound;
+    public AudioSource triple_shot_sound;
+    public AudioSource smoke_bomb_sound;
+    public AudioSource ultimate_laser_sound;
+    public AudioSource set_mine_sound;
 
-  // Use this for initialization
+
+    // Use this for initialization
     void Start () {
        base.Start();
         anim = GetComponent<Animator>();
@@ -73,6 +79,7 @@ public class SharpShooterController : PlayerController {
             {
                 if (Input.GetButton(player_movement.controller_num + "Y Button"))
                 {
+                    smoke_bomb_sound.Play();
                     currentEnergy -= 15f; // subtract cost
                     invisibleCooldown = Time.time + 5f;
                     anim.SetBool("Invisible", true);
@@ -93,15 +100,16 @@ public class SharpShooterController : PlayerController {
 
     private IEnumerator Ultimate()//shoots a giant laser that creates a collider that expands forward from the player 
     {
-        if (currentEnergy > 30)
+        if (currentEnergy > 25)
         {
             if (ultimateCooldown <= Time.time)
             {
                 if (Input.GetAxis(player_movement.controller_num + "Left Trigger") == 1)
                 {
-                    currentEnergy -= 30f;
+                    ultimate_laser_sound.Play();
+                    currentEnergy -= 25f;
                     anim.SetBool("Laser", true);
-                    ultimateCooldown = Time.time + 3f;
+                    ultimateCooldown = Time.time + 10f;
                     //Debug.Log("TIME OF ULTIMATEEE");
                     //transform.tag = "Invisible";
                     float change = 5.5f;
@@ -147,6 +155,7 @@ public class SharpShooterController : PlayerController {
             {
                 if (Input.GetButton(player_movement.controller_num + "A Button"))
                 {
+                    triple_shot_sound.Play();
                     currentEnergy -= 10f;
                     anim.SetBool("MultiShot", true);
                     multiShotCooldown = Time.time + 3f; // set the next time that this skill can be used to the current time plus the cooldown time
@@ -176,9 +185,10 @@ public class SharpShooterController : PlayerController {
             {
                 if (Input.GetButton(player_movement.controller_num + "B Button"))
                 {
+                    set_mine_sound.Play();
                     currentEnergy -= 10f;
                     anim.SetBool("Mine", true);
-                    mineCooldown = Time.time + 3f; // set the next time that this skill can be used to the current time plus the cooldown time
+                    mineCooldown = Time.time + 5f; // set the next time that this skill can be used to the current time plus the cooldown time
                     float height = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y;
                     Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 2));
                     yield return new WaitForSeconds(0.7f); // animation time
@@ -198,6 +208,7 @@ public class SharpShooterController : PlayerController {
             
             if (!isBasicAttacking)
             {
+                basic_attack_sound.Play();
                 anim.SetBool("isBasicAttacking", true);
                 isBasicAttacking = true;
                 

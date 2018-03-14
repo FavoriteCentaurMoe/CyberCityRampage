@@ -17,6 +17,8 @@ public class BossScript : MonoBehaviour
     public EnemyController enem;
     public bool dead;
     public GameObject drop_stuff;
+    public AudioSource basic_attack_sound;
+    public AudioSource laser_sound;
 
     // Use this for initialization
     void Start()
@@ -50,7 +52,7 @@ public class BossScript : MonoBehaviour
                 StartCoroutine(Laser());
             }
         }
-        else if (enem.currentHealth == 0)
+        else if (enem.currentHealth <= 0)
         {
             StartCoroutine(Death());
         }
@@ -72,7 +74,7 @@ public class BossScript : MonoBehaviour
             {
                 //Debug.Log("Oh it looks the counter is  : " + potAttCounter+" and the position is : "+i);
                 //potentialAttacks[potAttCounter] = i;
-                Debug.Log("Before it is " + potAttCounter);
+                //Debug.Log("Before it is " + potAttCounter);
                 potentiaAttacks.Add(potAttCounter++, i);
 
                 //Debug.Log("We just mapped : "+potAttCounter+" to "+i);
@@ -92,7 +94,9 @@ public class BossScript : MonoBehaviour
     private IEnumerator Laser()
     {
         anim.SetBool("Laser", true);
-        yield return new WaitForSeconds(1.7f);
+        yield return new WaitForSeconds(0.5f);
+        laser_sound.Play();
+        yield return new WaitForSeconds(1.2f);
         laser_hitbox.SetActive(true);
         yield return new WaitForSeconds(1f);
         laser_hitbox.SetActive(false);
@@ -109,6 +113,7 @@ public class BossScript : MonoBehaviour
         else
         {
             anim.SetBool("Smash", true);
+            basic_attack_sound.Play();
             int randomNum = Random.Range(0, potAttCounter);
 
             int positionKey = potentiaAttacks[randomNum];

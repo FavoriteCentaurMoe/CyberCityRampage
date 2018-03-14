@@ -156,7 +156,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1232764916650420}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.2, y: 4.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 4447081486527978}
@@ -469,7 +469,17 @@ MonoBehaviour:
   cleaveRangeRight: {fileID: 60343129092244356}
   shieldBashRangeRight: {fileID: 61392306664141836}
   tauntRange: {fileID: 70403420846191640}
+  shieldBashCooldown: 0
+  tauntCooldown: 0
+  cleaveCooldown: 0
+  berserkerCooldown: 0
   goingBerserk: 0
+  basic_attack_sound: {fileID: 0}
+  cleave_sound: {fileID: 0}
+  taunt_sound: {fileID: 0}
+  shield_bash_sound: {fileID: 0}
+  berserker_sound: {fileID: 0}
+  hurt_sound: {fileID: 0}
 --- !u!114 &114647534777756646
 MonoBehaviour:
   m_ObjectHideFlags: 1

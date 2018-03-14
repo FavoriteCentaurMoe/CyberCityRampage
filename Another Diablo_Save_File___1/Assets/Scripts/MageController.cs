@@ -31,6 +31,16 @@ public class MageController : PlayerController
 
     public BoxCollider2D spearRange;
 
+    public AudioSource basic_attack_sound;
+    public AudioSource portal_cast_sound;
+    public AudioSource small_portal_sound;
+    public AudioSource medium_portal_sound;
+    public AudioSource large_portal_sound;
+    public AudioSource ult_portal_sound;
+    public AudioSource phase_in_sound;
+    public AudioSource phase_out_sound;
+    public AudioSource grav_portal_sound;
+
     // Use this for initialization
     void Start () {
         base.Start();
@@ -65,6 +75,7 @@ public class MageController : PlayerController
             {
                 if (Input.GetAxis(player_movement.controller_num + "Left Trigger") == 1)
                 {
+                    portal_cast_sound.Play();
                     currentEnergy -= 30f;
                     //anim.SetBool("Laser", true);
                     meteorCooldown = Time.time + 10f;
@@ -93,6 +104,7 @@ public class MageController : PlayerController
             if (!isBasicAttacking)
             {
                 anim.SetBool("isBasicAttacking", true);
+                basic_attack_sound.Play();
                 isBasicAttacking = true;
                 //Debug.Log("basic attack");
                 yield return new WaitForSeconds(0.15f);
@@ -111,14 +123,14 @@ public class MageController : PlayerController
 
     private IEnumerator GravityWell() // utility skill: AOE taunt around the player.   cost 35, cooldown 7 seconds
     {
-        if (currentEnergy > 35f) // if you have enough rage to use this skill
+        if (currentEnergy > 15f) // if you have enough rage to use this skill
         {
             if(gravityCooldown <= Time.time) // if cooldown is 0
             {
                 if (Input.GetButton(player_movement.controller_num + "Y Button"))
                 {
                     anim.SetBool("Gravity Well", true);
-                    currentEnergy -= 35f;
+                    currentEnergy -= 15f;
                     Debug.Log("Taunt");
                     gravityCooldown = Time.time + 7f; // set the next time that this skill can be used to the current time plus the cooldown time
                     //tauntRange.gameObject.SetActive(true);
@@ -142,7 +154,7 @@ public class MageController : PlayerController
             {
                 if (Input.GetButton(player_movement.controller_num + "A Button"))
                 {
-
+                    portal_cast_sound.Play();
                     //anim.SetBool("Cleave", true);
                     currentEnergy -= 15f;
                     randomAttackCooldown = Time.time + 3f; // set the next time that this skill can be used to the current time plus the cooldown time
@@ -154,16 +166,19 @@ public class MageController : PlayerController
                     if(summon == 0)
                     {
                         //Debug.Log("pebble");
+                        small_portal_sound.Play();
                         randomSummon.GetComponent<RandomSummon>().type = 0;
                     }
                     else if (summon == 1)
                     {
                         //Debug.Log("box");
+                        medium_portal_sound.Play();
                         randomSummon.GetComponent<RandomSummon>().type = 1;
                     }
                     else
                     {
                         //Debug.Log("anvil");
+                        large_portal_sound.Play();
                         randomSummon.GetComponent<RandomSummon>().type = 2;
                     }
                     yield return new WaitForSeconds(1f);
@@ -186,6 +201,7 @@ public class MageController : PlayerController
             {
                 if (Input.GetButton(player_movement.controller_num + "B Button"))
                 {
+                    phase_in_sound.Play();
                     anim.SetBool("Phase", true);
                     currentEnergy -= 10f;
                     phaseCooldown = Time.time + 5f;
@@ -198,6 +214,7 @@ public class MageController : PlayerController
                     {
                         transform.position += new Vector3(-20, 0, 0);
                     }
+                    phase_out_sound.Play();
                     anim.SetBool("Phase", false);
                 }
             }

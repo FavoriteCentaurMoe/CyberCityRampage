@@ -81,6 +81,7 @@ public class bulletScript : MonoBehaviour {
         }
         else if (collision.gameObject.tag == "Enemy" && friendly)
         {
+            Debug.Log("here");
             collision.gameObject.GetComponent<EnemyController>().HurtEnemy(damage);
             if (!immortal)
             {

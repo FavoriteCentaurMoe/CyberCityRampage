@@ -111,7 +111,7 @@ MonoBehaviour:
   forHowLong: 2
   explosionRadius: 1
   timer: 2
-  jumpHeight: 2
+  jumpHeight: 3
   jumpTime: 1
   moveSpeed: 35
   rise: 0

@@ -12,6 +12,8 @@ public class SuicideBomber : ChasePlayer
     public CircleCollider2D cir;
     public float explosionDamage;
     public EnemyController enemy_controller;
+    //public AudioSource hurt_sound;
+    public AudioSource explosion_sound;
 
     public bool exploding;
 
@@ -38,6 +40,7 @@ public class SuicideBomber : ChasePlayer
         exploding = true;
         damage = explosionDamage;
         anim.SetBool("Explode", true);
+        explosion_sound.Play();
         //Debug.Log("Should be D E A D now");
 
     }
