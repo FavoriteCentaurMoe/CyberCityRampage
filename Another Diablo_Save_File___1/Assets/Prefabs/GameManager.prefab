@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1083287549101658}
+  m_IsPrefabParent: 1
+--- !u!1 &1083287549101658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4581744085492224}
+  - component: {fileID: 114902701651498060}
+  - component: {fileID: 114809197440359020}
+  - component: {fileID: 114426680312500868}
+  - component: {fileID: 114289343156844624}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4581744085492224
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083287549101658}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.0000305, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114289343156844624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083287549101658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d97cb86d5ba5c3f45987ee14efc8ecaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenuUI: {fileID: 0}
+  controll: {fileID: 0}
+  inControl: 0
+  pauseStarted: 0
+--- !u!114 &114426680312500868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083287549101658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62588061fdded864f8bf0d93a263d2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lcm: {fileID: 0}
+  Warrior: {fileID: 1803893900044824, guid: dccb23bb4cd40c64bbadd3b9bc374e86, type: 2}
+  Medic: {fileID: 1787427240942612, guid: 30ddb38f6c887474684202193a82f0eb, type: 2}
+  Dog: {fileID: 1789609191050354, guid: 38b3aafcaf0a4c046be9609cccf87328, type: 2}
+  SharpShooter: {fileID: 1613728762694088, guid: 4703adf3c51a2324292ea591f6def0b2,
+    type: 2}
+  Mage: {fileID: 1931309727062372, guid: 409ea5dece40a0e438fcc2f3054b6b46, type: 2}
+  player1: {fileID: 0}
+  dog_character_1: {fileID: 0}
+  player2: {fileID: 0}
+  dog_character_2: {fileID: 0}
+  player3: {fileID: 0}
+  dog_character_3: {fileID: 0}
+  player4: {fileID: 0}
+  dog_character_4: {fileID: 0}
+  player1spawn: {fileID: 0}
+  player2spawn: {fileID: 0}
+  player3spawn: {fileID: 0}
+  player4spawn: {fileID: 0}
+  ui_controller: {fileID: 114902701651498060}
+  main_cam: {fileID: 0}
+--- !u!114 &114809197440359020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083287549101658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87703c9c451990447b26711105b5cbd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageText: {fileID: 114249293595788472, guid: d5c2d61abf8ff734781787a5c6ccf54a,
+    type: 2}
+  damageTextEnemy: {fileID: 114872964273536924, guid: 9db888ec38a3e6642bef0a67fc2c2b69,
+    type: 2}
+  healText: {fileID: 114443989648357272, guid: 42db929ba56d7344abb4e3a0e6c51963, type: 2}
+--- !u!114 &114902701651498060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1083287549101658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d71295c47bcced4c918d075fc06c7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lcm: {fileID: 0}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
+  player3: {fileID: 0}
+  player4: {fileID: 0}
+  warrior: {fileID: 21300000, guid: 365053a20359eae40b7c956cf50cceaa, type: 3}
+  mage: {fileID: 21300002, guid: 365053a20359eae40b7c956cf50cceaa, type: 3}
+  sharpshooter: {fileID: 21300004, guid: 365053a20359eae40b7c956cf50cceaa, type: 3}
+  medic: {fileID: 21300006, guid: 365053a20359eae40b7c956cf50cceaa, type: 3}
+  player1Icon: {fileID: 0}
+  player1Health: {fileID: 0}
+  player1Resource: {fileID: 0}
+  player1ResourceImage: {fileID: 0}
+  player1ability1: {fileID: 0}
+  player1ability2: {fileID: 0}
+  player1ability3: {fileID: 0}
+  player1ability4: {fileID: 0}
+  player2Icon: {fileID: 0}
+  player2Health: {fileID: 0}
+  player2Resource: {fileID: 0}
+  player2ResourceImage: {fileID: 0}
+  player2ability1: {fileID: 0}
+  player2ability2: {fileID: 0}
+  player2ability3: {fileID: 0}
+  player2ability4: {fileID: 0}
+  player3Icon: {fileID: 0}
+  player3Health: {fileID: 0}
+  player3Resource: {fileID: 0}
+  player3ResourceImage: {fileID: 0}
+  player3ability1: {fileID: 0}
+  player3ability2: {fileID: 0}
+  player3ability3: {fileID: 0}
+  player3ability4: {fileID: 0}
+  player4Icon: {fileID: 0}
+  player4Health: {fileID: 0}
+  player4Resource: {fileID: 0}
+  player4ResourceImage: {fileID: 0}
+  player4ability1: {fileID: 0}
+  player4ability2: {fileID: 0}
+  player4ability3: {fileID: 0}
+  player4ability4: {fileID: 0}
