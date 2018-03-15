@@ -44,7 +44,7 @@ public class WarriorController : PlayerController {
     //public float luck;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         base.Start();
         anim = GetComponent<Animator>();
         maxHealth = 150f;
@@ -228,8 +228,8 @@ public class WarriorController : PlayerController {
                     anim.SetBool("Berserker", true);
                     berserker_sound.Play();
                     currentRage -= 30f;
-                    berserkerCooldown = Time.time + 30f; // set the next time that this skill can be used to the current time plus the cooldown time
-                    berserkTime = Time.time + 20f;
+                    berserkerCooldown = Time.time + 20f; // set the next time that this skill can be used to the current time plus the cooldown time
+                    berserkTime = Time.time + 10f;
                     goingBerserk = true;
                     Debug.Log("Berserker!!!");
                     yield return new WaitForSeconds(1.15f);

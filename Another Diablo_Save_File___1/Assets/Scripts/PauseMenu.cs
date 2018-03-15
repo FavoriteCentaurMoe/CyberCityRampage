@@ -24,13 +24,16 @@ public class PauseMenu : MonoBehaviour
     }
     public void Pause()
     {
-        if (inControl)
+        if (Time.timeScale == 1)
         {
-            return;
+            if (inControl)
+            {
+                return;
+            }
+            pauseMenuUI.SetActive(true);
+            Time.timeScale = 0f;
+            gamePaused = true;
         }
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        gamePaused = true;
     }
 
     public void Resume()

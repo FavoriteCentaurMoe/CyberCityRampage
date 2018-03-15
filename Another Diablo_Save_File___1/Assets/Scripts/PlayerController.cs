@@ -101,11 +101,11 @@ public class PlayerController : MonoBehaviour {
         {
             currentHealth = maxHealth;
         }
-        if (currentHealth <= 0f)
-        {
-            currentHealth = 0f;
-            Destroy(this.gameObject);
-        }
+        //if (currentHealth <= 0f)
+        //{
+        //    currentHealth = 0f;
+        //    Destroy(this.gameObject);
+        //}
     }
 
     //    // Update is called once per frame

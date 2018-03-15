@@ -56,15 +56,15 @@ public class RandomSummon : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Enemy" && type == 0) //pebble
         {
-            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(1f);
+            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(5f);
         }
         else if (collision.gameObject.tag == "Enemy" && type == 1) // box
         {
-            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(mage_controller.strength);
+            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(mage_controller.strength * 3);
         }
         else if (collision.gameObject.tag == "Enemy" && type == 2) // anvil
         {
-            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(mage_controller.strength*2);
+            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(mage_controller.strength * 5);
         }
     }
 

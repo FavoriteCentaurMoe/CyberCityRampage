@@ -32,7 +32,7 @@ public class Meteor : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(mage_controller.strength*4);
+            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(mage_controller.strength*10);
         }
     }
 

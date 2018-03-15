@@ -17,7 +17,7 @@ public class GravityWell : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.tag == "Enemy" && collision.gameObject.name != "Boss")
         {
             collision.gameObject.transform.position = Vector3.MoveTowards(collision.gameObject.transform.position, transform.position, 0.25f);
         }

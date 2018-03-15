@@ -684,7 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 5
   speed: 0
-  damage: 50
+  damage: 30
   friendly: 1
   immortal: 1
   travel: {x: 0, y: 0, z: 0}

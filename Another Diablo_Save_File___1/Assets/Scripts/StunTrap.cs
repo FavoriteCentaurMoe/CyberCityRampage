@@ -17,6 +17,7 @@ public class StunTrap : MonoBehaviour {
         if(collision.tag == "Enemy")
         {
             Debug.Log("Stun Mine has detected an Enemy");
+            collision.gameObject.GetComponent<EnemyController>().HurtEnemy(5f);
             collision.gameObject.GetComponent<EnemyController>().StunEnemy(stunTime);
             Destroy(this.gameObject);
         }

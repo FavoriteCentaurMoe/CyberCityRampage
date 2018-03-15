@@ -18,6 +18,14 @@ public class InGameLoad : MonoBehaviour {
     public GameObject player4;
     public GameObject dog_character_4;
 
+    public bool check1 = true;
+    public bool check2 = true;
+    public bool check3 = true;
+    public bool check4 = true;
+
+
+    public GameObject death_menu;
+
     public Transform player1spawn;
     public Transform player2spawn;
     public Transform player3spawn;
@@ -27,12 +35,25 @@ public class InGameLoad : MonoBehaviour {
 
     public CameraFollower main_cam;
 
-	// Use this for initialization
-	void Start () {
+    public int init_num_targets = 0;
+    public bool AllSet = false;
+
+    // Use this for initialization
+    private void Awake()
+    {
         lcm = FindObjectOfType<LocalControllersManager>();
+    }
+    void Start () {
+        check1 = true;
+        check2 = true;
+        check3 = true;
+        check4 = true;
+        init_num_targets = 0;
+    
         //ui_controller.lcm = lcm;
         if(lcm.plr1Set)
         {
+            Debug.Log("player 1 set");
             //Debug.Log(lcm.player1);
             //Debug.Log(lcm.player1Character);
             if (lcm.player1Character == "Warrior")
@@ -68,9 +89,10 @@ public class InGameLoad : MonoBehaviour {
                 player1.GetComponent<PlayerMovement>().controller_num = lcm.player1;
                 ui_controller.player1 = player1.GetComponent<PlayerController>();
             }
-
-        }
         main_cam.targets.Add(player1.transform);
+        init_num_targets += 1;
+        }
+        
         if(lcm.plr2Set)
         {
             Debug.Log(lcm.player2);
@@ -108,8 +130,10 @@ public class InGameLoad : MonoBehaviour {
                 player2.GetComponent<PlayerMovement>().controller_num = lcm.player2;
                 ui_controller.player2 = player2.GetComponent<PlayerController>();
             }
-        }
         main_cam.targets.Add(player2.transform);
+        init_num_targets += 1;
+        }
+        
         if (lcm.plr3Set)
         {
             if (lcm.player3Character == "Warrior")
@@ -145,8 +169,10 @@ public class InGameLoad : MonoBehaviour {
                 player3.GetComponent<PlayerMovement>().controller_num = lcm.player3;
                 ui_controller.player3 = player3.GetComponent<PlayerController>();
             }
-        }
         main_cam.targets.Add(player3.transform);
+        init_num_targets += 1;
+        }
+        
         // add in the 4th
         if (lcm.plr4Set)
         {
@@ -183,61 +209,102 @@ public class InGameLoad : MonoBehaviour {
                 player4.GetComponent<PlayerMovement>().controller_num = lcm.player4;
                 ui_controller.player4 = player4.GetComponent<PlayerController>();
             }
+         main_cam.targets.Add(player4.transform);
+         init_num_targets += 1;
         }
-        main_cam.targets.Add(player4.transform);
+        Debug.Log("aboout to be all set ");
+        AllSet = true;
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
-    
-        if (main_cam.targets.Contains(player1.transform))// player still alive?
+        
+        if (init_num_targets >= 1 && check1 && main_cam.targets.Contains(player1.transform))// player still alive?
         {
             // could put the ability cooldowns here
-            if (player1.GetComponent<PlayerController>().currentHealth == 0) // died just now?
+            if (player1.GetComponent<PlayerController>().currentHealth <= 0) // died just now?
             {
+                check1 = false;
                 main_cam.targets.Remove(player1.transform); // remove from cam
-                if(player1.GetComponent<MedicPlayerController>() != null) // if medic
+                if (player1.GetComponent<MedicPlayerController>() != null) // if medic
                 {
                     Destroy(dog_character_1); // dog needs to leave as well
                 }
+                Destroy(player1.gameObject);
+                
             }
         }
 
-        if (main_cam.targets.Contains(player2.transform))
+        if (init_num_targets >= 2 && check2 && main_cam.targets.Contains(player2.transform))
         {
-            if (player2.GetComponent<PlayerController>().currentHealth == 0)
+            if (player2.GetComponent<PlayerController>().currentHealth <= 0)
             {
+                check2 = false;
                 main_cam.targets.Remove(player2.transform);
                 if (player2.GetComponent<MedicPlayerController>() != null)
                 {
+
                     Destroy(dog_character_2);
                 }
+                Destroy(player2.gameObject);
+                
             }
         }
 
-        if (main_cam.targets.Contains(player3.transform))
+        Debug.Log("Not Getting to player 3");
+
+        if (init_num_targets >= 3 && check3 && main_cam.targets.Contains(player3.transform))
         {
-            if (player3.GetComponent<PlayerController>().currentHealth == 0)
+            if (player3.GetComponent<PlayerController>().currentHealth <= 0)
             {
+                check3 = false;
                 main_cam.targets.Remove(player3.transform);
                 if (player3.GetComponent<MedicPlayerController>() != null)
                 {
                     Destroy(dog_character_3);
                 }
+                Destroy(player3.gameObject);
+               
             }
         }
 
-        if (main_cam.targets.Contains(player4.transform))
+        Debug.Log("Reading Through Player 3");
+
+        if (init_num_targets >= 4 && check4 && main_cam.targets.Contains(player4.transform))
         {
-            if (player4.GetComponent<PlayerController>().currentHealth == 0)
+            if (player4.GetComponent<PlayerController>().currentHealth <= 0)
             {
+                check4 = false;
+                
                 main_cam.targets.Remove(player4.transform);
                 if (player4.GetComponent<MedicPlayerController>() != null)
                 {
                     Destroy(dog_character_4);
                 }
+                Destroy(player4.gameObject);
+               
             }
         }
 
+        
+
+    }
+
+    private void LateUpdate()
+    {
+        AllDead();
+    }
+
+    void AllDead()
+    {
+        //Debug.Log("here working");
+        if(main_cam.targets.Count <= 0)
+        {
+            Debug.Log("count is 0");
+            Time.timeScale = 0;
+            death_menu.gameObject.SetActive(true);
+            AllSet = false;
+        }
     }
 }

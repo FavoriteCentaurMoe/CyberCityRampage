@@ -8,7 +8,7 @@ public class DogScript : MonoBehaviour {
     public float speed;
     public float time;
     public float healing;
-    public float damage = 6;
+    public float damage = 10;
     public float playerDirection;
     public float attackMultiplier = 1f;
 
@@ -126,10 +126,12 @@ public class DogScript : MonoBehaviour {
             if (playerDirection < 0)
             {
                 rig.transform.position = new Vector3(transform.position.x + (-speed * Time.deltaTime), transform.position.y);
+                //DogFacing(0f);
             }
             else
             {
                 rig.transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y);
+                //DogFacing(180f);
             }
         }
         else if(Vector3.Distance(transform.position, owner.transform.position) <  1)//for the dog to sit

@@ -84,12 +84,19 @@ MonoBehaviour:
   dog_character_3: {fileID: 0}
   player4: {fileID: 0}
   dog_character_4: {fileID: 0}
+  check1: 1
+  check2: 1
+  check3: 1
+  check4: 1
+  death_menu: {fileID: 0}
   player1spawn: {fileID: 0}
   player2spawn: {fileID: 0}
   player3spawn: {fileID: 0}
   player4spawn: {fileID: 0}
   ui_controller: {fileID: 114902701651498060}
   main_cam: {fileID: 0}
+  init_num_targets: 0
+  AllSet: 0
 --- !u!114 &114809197440359020
 MonoBehaviour:
   m_ObjectHideFlags: 1

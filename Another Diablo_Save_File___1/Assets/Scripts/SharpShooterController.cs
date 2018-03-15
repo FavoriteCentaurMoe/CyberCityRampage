@@ -38,14 +38,14 @@ public class SharpShooterController : PlayerController {
 
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
        base.Start();
         anim = GetComponent<Animator>();
         maxHealth = 75f;
         currentHealth = maxHealth;
         maxEnergy = 100f;
         currentEnergy = maxEnergy;
-        player_movement.speed = 30f;
+        player_movement.speed = 25f;
         attackSpeed = 0.1f;
         strength = 5f;
     }
@@ -77,7 +77,7 @@ public class SharpShooterController : PlayerController {
         {
             if (invisibleCooldown <= Time.time)
             {
-                if (Input.GetButton(player_movement.controller_num + "Y Button"))
+                if (Input.GetButton(player_movement.controller_num + "B Button"))
                 {
                     smoke_bomb_sound.Play();
                     currentEnergy -= 15f; // subtract cost
@@ -109,7 +109,7 @@ public class SharpShooterController : PlayerController {
                     ultimate_laser_sound.Play();
                     currentEnergy -= 25f;
                     anim.SetBool("Laser", true);
-                    ultimateCooldown = Time.time + 10f;
+                    ultimateCooldown = Time.time + 20f;
                     //Debug.Log("TIME OF ULTIMATEEE");
                     //transform.tag = "Invisible";
                     float change = 5.5f;
@@ -183,14 +183,14 @@ public class SharpShooterController : PlayerController {
         {
             if (mineCooldown <= Time.time) // if cooldown is 0
             {
-                if (Input.GetButton(player_movement.controller_num + "B Button"))
+                if (Input.GetButton(player_movement.controller_num + "Y Button"))
                 {
                     set_mine_sound.Play();
                     currentEnergy -= 10f;
                     anim.SetBool("Mine", true);
                     mineCooldown = Time.time + 5f; // set the next time that this skill can be used to the current time plus the cooldown time
                     float height = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y;
-                    Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 2));
+                    Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 4));
                     yield return new WaitForSeconds(0.7f); // animation time
                     Instantiate(stunMine, spot, transform.rotation);
                     anim.SetBool("Mine", false);
@@ -246,7 +246,7 @@ public class SharpShooterController : PlayerController {
         if(gameObject.tag == "Invisible")
         {
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-            player_movement.speed = 35f;
+            player_movement.speed = 25f;
             yield return new WaitForSeconds(2f);
             GetComponent<SpriteRenderer>().color = Color.white;
             player_movement.speed = 30f;

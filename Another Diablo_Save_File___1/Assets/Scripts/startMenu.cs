@@ -14,7 +14,7 @@ public class startMenu : MonoBehaviour {
     public void startGame()
     {
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("ControllerMapping");
     }
 
     public void controls()

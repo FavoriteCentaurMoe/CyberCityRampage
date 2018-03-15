@@ -19,6 +19,7 @@ public class BossScript : MonoBehaviour
     public GameObject drop_stuff;
     public AudioSource basic_attack_sound;
     public AudioSource laser_sound;
+    public GameObject win_text;
 
     // Use this for initialization
     void Start()
@@ -63,6 +64,8 @@ public class BossScript : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         GetComponent<BossScript>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = false;
+        Time.timeScale = 0;
+        win_text.SetActive(true);
     }
     void checkForPlayers()
     {

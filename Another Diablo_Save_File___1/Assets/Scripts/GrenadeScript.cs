@@ -30,6 +30,7 @@ public class GrenadeScript : MonoBehaviour {
         if(collision.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>().SlowEnemy(byHowMuch, forHowLong);
+            //StartCoroutine(Explosion());
         }
     }
 

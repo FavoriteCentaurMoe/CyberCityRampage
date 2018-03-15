@@ -199,7 +199,7 @@ public class UIController : MonoBehaviour
         /*
          * all of this should be handled differently when a player chooses a character.  this is just for testing purposes
          */
-        if (lcm.plr1Set)
+        if (lcm.plr1Set && player1 != null)
         {
             player1Health.maxValue = player1.maxHealth;
             player1Health.value = player1.currentHealth;
@@ -356,7 +356,7 @@ public class UIController : MonoBehaviour
                 }
             }
         }
-        if (lcm.plr2Set)
+        if (lcm.plr2Set && player2 != null)
         {
             player2Health.maxValue = player2.maxHealth;
             player2Health.value = player2.currentHealth;
@@ -514,7 +514,7 @@ public class UIController : MonoBehaviour
                 }
             }
         }
-        if (lcm.plr3Set)
+        if (lcm.plr3Set && player3 != null)
         {
             player3Health.maxValue = player3.maxHealth;
             player3Health.value = player3.currentHealth;
@@ -672,7 +672,7 @@ public class UIController : MonoBehaviour
                 }
             }
         }
-        if (lcm.plr4Set)
+        if (lcm.plr4Set && player4 != null)
         {
             player4Health.maxValue = player4.maxHealth;
             player4Health.value = player4.currentHealth;

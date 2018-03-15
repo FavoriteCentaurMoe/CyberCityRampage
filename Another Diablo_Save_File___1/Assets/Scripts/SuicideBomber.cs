@@ -14,59 +14,57 @@ public class SuicideBomber : ChasePlayer
     public EnemyController enemy_controller;
     //public AudioSource hurt_sound;
     public AudioSource explosion_sound;
-
+    public GameObject explosion_thing;
     public bool exploding;
+    public bool exploded = false;
 
     private void Start()
     {
+
         base.Start();
         cir = GetComponent<CircleCollider2D>();
         //Debug.Log("Start of the suicide bomber is beginning");
         enemy_controller = GetComponent<EnemyController>();
         enemy_controller.maxHealth = 10f;
-
-
-
-
+    }
+    private void LateUpdate()
+    {
+        if (exploding)
+        {
+            StartCoroutine(explosion());
+            exploding = false;
+            exploded = true;
+        }
     }
 
     public IEnumerator explosion()
     {
+
         yield return new WaitForSeconds(timer);
-        //Debug.Log("EXPLOSiON??");
-        //agro.SetActive(false);
-        //yield return new WaitForSeconds(0.2f);
-        cir.radius = explosionRadius;
-        exploding = true;
-        damage = explosionDamage;
         anim.SetBool("Explode", true);
-        explosion_sound.Play();
-        //Debug.Log("Should be D E A D now");
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(explosion_thing, this.transform);
+        Destroy(gameObject, explodeTime);
+        
+
 
     }
 
 
 
-    private IEnumerator OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("enter trigger");
         if (collision.gameObject.tag == "Player")
         {
-            StartCoroutine(explosion());
-            yield return new WaitForSeconds(timer);
             //if (exploding)
             //{
-                //Debug.Log("Explosion!!");
+            if (!exploded)
+            {
+                exploding = true;
+            }
 
-                //if (collision.gameObject.tag == "Player")
-                //{
-                    if (!collision.gameObject.GetComponent<PlayerController>().hurt)
-                    {
-                        collision.gameObject.GetComponent<PlayerController>().HurtPlayer(damage);
-                        Destroy(gameObject, explodeTime);
-                        //DamageTextHandler.makeDamageText(damage.ToString(), collision.transform);
-                    }
-                //}
+                //DamageTextHandler.makeDamageText(damage.ToString(), collision.transform);
             //}
         }
 

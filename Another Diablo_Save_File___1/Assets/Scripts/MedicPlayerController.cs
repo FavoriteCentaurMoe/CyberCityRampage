@@ -30,11 +30,11 @@ public class MedicPlayerController : PlayerController {
     public AudioSource throw_ball;
     public AudioSource send_dog_h;
     public AudioSource ult;
-    public AudioSource hurt;
+    public AudioSource hurt_sound;
 
     private void EnergyCap() // increases energy always and caps it 
     {
-        currentHealth += 2 * Time.deltaTime;
+        currentHealth += Time.deltaTime;
         currentEnergy += Time.deltaTime;
         if (currentEnergy > maxEnergy)
         {
@@ -73,7 +73,7 @@ public class MedicPlayerController : PlayerController {
         {
             //GetComponent<SpriteRenderer>().color = Color.magenta;
             DamageTextHandler.makeDamageText(damage.ToString(), transform, 1f, "Player");
-            hurt.Play();
+            hurt_sound.Play();
             currentHealth -= damage;
             StartCoroutine(HurtTime());
         }
@@ -120,20 +120,20 @@ public class MedicPlayerController : PlayerController {
                     //yield return new WaitForSeconds(0.3f);
 
                     yield return new WaitForSeconds(0.5f);
-                    moveSpeed = player_movement.speed * 3;
+                    moveSpeed = player_movement.speed * 1.5f;
                     //jumping = true;
                     rise = true;
 
-                   
-
-                    Debug.Log("here maybe?");
+                  
                     BoxCollider2D boxx = gameObject.GetComponent<BoxCollider2D>();
                     //yield return new WaitForSeconds(0.1f);
-                    boxx.isTrigger = true;
-                    transform.tag = "Invisible";
+                    //boxx.isTrigger = true;
+                    //transform.tag = "Invisible";
+                    gameObject.layer = 13;
                     yield return new WaitForSeconds(0.6f);
-                    boxx.isTrigger = false;
-                    transform.tag = "Player";
+                    //boxx.isTrigger = false;
+                    //transform.tag = "Player";
+                    gameObject.layer = 11;
                     yield return new WaitForSeconds(0.4f);
                     //jumpHeight = -jumpHeight;
                     ///moveSpeed = -moveSpeed;
@@ -179,7 +179,7 @@ public class MedicPlayerController : PlayerController {
         {
             if (Input.GetButton(player_movement.controller_num + "X Button"))
             {
-                if (Vector3.Distance(transform.position, dog.transform.position) < 5)
+                if (Vector3.Distance(transform.position, dog.transform.position) < 7)
                 {
                     basicAttackTime = Time.time + 1f;
                     anim.SetBool("isBasicAttacking", true);
@@ -214,14 +214,14 @@ public class MedicPlayerController : PlayerController {
         }*/
 
 
-    void Start () {
+    void Awake () {
         base.Start();
         anim = GetComponent<Animator>();
         maxHealth = 50f;
         currentHealth = maxHealth;
         maxEnergy = 100f;
         currentEnergy = maxEnergy;
-        player_movement.speed = 15f;
+        player_movement.speed = 20f;
         attackSpeed = 0.15f;
         strength = 5f;
     }

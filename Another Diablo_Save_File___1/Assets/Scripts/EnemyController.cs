@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour {
     public ShootPlayer shoot_player;
     public BossScript boss;
 
-    //public Image healthImage; // **wont do until ask nikhil
+    public Image healthImage; // **wont do until ask nikhil
 
 
 	// Use this for initialization
@@ -50,7 +50,7 @@ public class EnemyController : MonoBehaviour {
         }
         //Debug.Log("Ouch I was hit");
         currentHealth -= damage;
-        //healthImage.fillAmount = currentHealth / maxHealth;  // **wont do until ask nikhil
+        healthImage.fillAmount = currentHealth / maxHealth;  // **wont do until ask nikhil
     }
     public void StunEnemy(float stunTime)
     {

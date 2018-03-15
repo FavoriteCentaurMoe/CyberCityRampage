@@ -40,9 +40,11 @@ public class MageController : PlayerController
     public AudioSource phase_in_sound;
     public AudioSource phase_out_sound;
     public AudioSource grav_portal_sound;
+    public int boundaries;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
+        boundaries = LayerMask.NameToLayer("Boundaries");
         base.Start();
         anim = GetComponent<Animator>();
         maxHealth = 75f;
@@ -136,7 +138,7 @@ public class MageController : PlayerController
                     //tauntRange.gameObject.SetActive(true);
                     yield return new WaitForSeconds(1f);
                     float height = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y;
-                    Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 2));
+                    Vector2 spot = new Vector2(transform.position.x, transform.position.y - (height / 4));
                     Instantiate(gravityWell, spot, transform.rotation);
                     //tauntRange.gameObject.SetActive(false);
                     anim.SetBool("Gravity Well", false);
@@ -205,15 +207,23 @@ public class MageController : PlayerController
                     anim.SetBool("Phase", true);
                     currentEnergy -= 10f;
                     phaseCooldown = Time.time + 5f;
-                    yield return new WaitForSeconds(0.55f); // animation time
-                    if(player_movement.lastDirection > 0)
-                    {
-                        transform.position += new Vector3(20, 0, 0);
-                    }
-                    else
-                    {
-                        transform.position += new Vector3(-20, 0, 0);
-                    }
+                    
+                    yield return new WaitForSeconds(0.5f); // animation time
+                    player_movement.speed *= 1.5f;
+                    GetComponent<SpriteRenderer>().enabled = false;
+                    gameObject.layer = 13;
+                    yield return new WaitForSeconds(0.5f);
+                    //if (player_movement.lastDirection > 0)
+                    //{
+                    //    transform.position += new Vector3(20, 0, 0);
+                    //}
+                    //else
+                    //{
+                    //    transform.position += new Vector3(-20, 0, 0);
+                    //}
+                    player_movement.speed /= 1.5f;
+                    gameObject.layer = 11;
+                    GetComponent<SpriteRenderer>().enabled = true;
                     phase_out_sound.Play();
                     anim.SetBool("Phase", false);
                 }
