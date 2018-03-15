@@ -35,6 +35,7 @@ public class SharpShooterController : PlayerController {
     public AudioSource smoke_bomb_sound;
     public AudioSource ultimate_laser_sound;
     public AudioSource set_mine_sound;
+    public AudioSource hurt_sound_shooter;
 
 
     // Use this for initialization
@@ -52,8 +53,9 @@ public class SharpShooterController : PlayerController {
 
     public override void HurtPlayer(float damage)
     {
-            GetComponent<SpriteRenderer>().color = Color.magenta;
+            //GetComponent<SpriteRenderer>().color = Color.magenta;
             DamageTextHandler.makeDamageText(damage.ToString(), transform, 1f, "Player");
+            hurt_sound_shooter.Play();
             currentHealth -= damage;
             StartCoroutine(HurtTime());
     }

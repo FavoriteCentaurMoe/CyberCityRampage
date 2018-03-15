@@ -50,7 +50,11 @@ public class AttackSpot : MonoBehaviour {
         //Debug.Log("About to deal some damage : " + damage);
         if (containsPlayer)
         {
-            selectedPlayer.HurtPlayer(damage);
+            if (selectedPlayer != null)
+            {
+                selectedPlayer.HurtPlayer(damage);
+            }
+            
             //transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y);
         }
     }

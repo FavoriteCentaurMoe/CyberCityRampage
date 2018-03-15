@@ -40,6 +40,7 @@ public class MageController : PlayerController
     public AudioSource phase_in_sound;
     public AudioSource phase_out_sound;
     public AudioSource grav_portal_sound;
+    public AudioSource hurt_sound_m;
     public int boundaries;
 
     // Use this for initialization
@@ -193,6 +194,15 @@ public class MageController : PlayerController
                 }
             }
         }
+    }
+
+    public override void HurtPlayer(float damage)
+    {
+        //GetComponent<SpriteRenderer>().color = Color.magenta;
+        DamageTextHandler.makeDamageText(damage.ToString(), transform, 1f, "Player");
+        hurt_sound_m.Play();
+        currentHealth -= damage;
+        StartCoroutine(HurtTime());
     }
 
     private IEnumerator Phase() // mobility skill can go through enemies

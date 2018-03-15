@@ -44,6 +44,7 @@ public class SuicideBomber : ChasePlayer
         anim.SetBool("Explode", true);
         yield return new WaitForSeconds(0.5f);
         Instantiate(explosion_thing, this.transform);
+        explosion_sound.Play();
         Destroy(gameObject, explodeTime);
         
 

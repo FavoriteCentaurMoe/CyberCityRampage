@@ -471,7 +471,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CONNECT YOUR CONTROLLER BY PRESSING A.  PRESS START WHEN READY
+  m_Text: CONNECT YOUR CONTROLLER BY PRESSING A.  PRESS START WHEN ALL PLAYERS ARE
+    READY
 --- !u!222 &1111740735
 CanvasRenderer:
   m_ObjectHideFlags: 0

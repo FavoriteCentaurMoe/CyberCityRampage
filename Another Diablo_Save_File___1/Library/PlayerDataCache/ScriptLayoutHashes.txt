@@ -141,7 +141,7 @@ b24baeca8d0fffbbe448e20e62b79557 Assembly-CSharp.dll:.ChasePlayer
 5052c6e74c456cfa107927c76c936663 Assembly-CSharp.dll:UnityEngine.Tilemaps.AnimatedTile
 ad0f126fcba09821bc39d20a791e1921 Assembly-CSharp.dll:Pathfinding.NodeLink2
 7eda268dd4f999c3ada4e1c31de05a28 Assembly-CSharp.dll:.AstarPath
-0e7ff24bae5284187146ff6ef7004612 Assembly-CSharp.dll:.MageController
+67d32c9c50e4a33c942db7025e4d6472 Assembly-CSharp.dll:.MageController
 26f3192c64d6b4dcba4cb39a614a39d8 Assembly-CSharp.dll:Pathfinding.Examples.AstarSmoothFollow2
 c78288abd7c4d2c374e4a22a11159b26 Assembly-CSharp.dll:Pathfinding.SimpleSmoothModifier
 e0b0f15ccfe4de913d880f26e526ae27 Assembly-CSharp.dll:.BasicAttack
@@ -206,7 +206,7 @@ b1a3ad5368292866ce0a612638dc94ac Assembly-CSharp.dll:Pathfinding.Examples.Proced
 f424cbdd132327828b909a99c13b7322 Assembly-CSharp.dll:Pathfinding.Legacy.LegacyAIPath
 b807d416ed1e4827ed012a75c2ab224e Assembly-CSharp.dll:Pathfinding.DynamicGridObstacle
 4493ff9f244bc8a56db0486bc36d701b Assembly-CSharp.dll:Pathfinding.AnimationLink
-235fcefff1ceb4d609a3847bd6f38808 Assembly-CSharp.dll:.SharpShooterController
+8828e10cde1124790871e79d8e7e01bd Assembly-CSharp.dll:.SharpShooterController
 19a2d373917440e586822a94c4b79119 Assembly-CSharp.dll:Pathfinding.Patrol
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SmokeScreen
 f58446bc6c4a82143e5802489b7498ff Assembly-CSharp.dll:.PlayerController

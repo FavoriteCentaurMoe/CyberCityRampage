@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 95465102468002526}
   - component: {fileID: 58940446994834768}
   - component: {fileID: 82323005666072990}
+  - component: {fileID: 82606163824037212}
   m_Layer: 8
   m_Name: SuicideBomber
   m_TagString: Enemy
@@ -124,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1213764471877106}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -295.03998, y: 119.06, z: 0.1796875}
+  m_LocalPosition: {x: -76.68988, y: 8.79953, z: 0.21875}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 4409835789702784}
@@ -287,6 +288,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82606163824037212
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213764471877106}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ffcf518c6d7360442aef2f61b28d1b98, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95465102468002526
 Animator:
   serializedVersion: 3
@@ -327,7 +408,7 @@ MonoBehaviour:
   leftRight: 0
   hurt: 0
   anim: {fileID: 0}
-  hurt_sound: {fileID: 0}
+  hurt_sound: {fileID: 82606163824037212}
   updateRate: 2
   speed: 5
   pathIsEnded: 0
@@ -343,6 +424,7 @@ MonoBehaviour:
   explosion_thing: {fileID: 1558917748423988, guid: bd2a031e41b78814b9a6fc41703823ed,
     type: 2}
   exploding: 0
+  exploded: 0
 --- !u!114 &114087689964641756
 MonoBehaviour:
   m_ObjectHideFlags: 1
