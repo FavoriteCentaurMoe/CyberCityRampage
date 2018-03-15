@@ -119,7 +119,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-363ba123d8b0d2a808fd5a25c5c00f46 Assembly-CSharp.dll:.LocalControllerUI
+b59d058069b5d5b591d923b680e90adb Assembly-CSharp.dll:.LocalControllerUI
 125fad465ae25cd802f09f4f43c950cb Assembly-CSharp.dll:.RandomSummon
 3a2075ca86c7d54b1d611af26ebacf71 Assembly-CSharp.dll:.DogScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DropDestroy
@@ -132,7 +132,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
-01486ec696c1e20fd689da52da0182e4 Assembly-CSharp.dll:.GrenadeScript
+657b0cbe436ee9f10bd497d6d06a754a Assembly-CSharp.dll:.GrenadeScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BossLevelEntrance
 492ce533dea53cce6adf42f72c7090b1 Assembly-CSharp.dll:.StunTrap
 b24baeca8d0fffbbe448e20e62b79557 Assembly-CSharp.dll:.ChasePlayer
@@ -212,3 +212,4 @@ b807d416ed1e4827ed012a75c2ab224e Assembly-CSharp.dll:Pathfinding.DynamicGridObst
 f58446bc6c4a82143e5802489b7498ff Assembly-CSharp.dll:.PlayerController
 b296cea1ffa766a68a1f28d597b0fb49 Assembly-CSharp.dll:.MenuController
 190fba7cc5b2a897113fd786b8d8e10b Assembly-CSharp.dll:.Meteor
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SlowGrenadeRadius

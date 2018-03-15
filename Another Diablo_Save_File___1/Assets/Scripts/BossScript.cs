@@ -34,7 +34,10 @@ public class BossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(enem.currentHealth <= enem.maxHealth/2)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1,0.5f,0.5f);
+        }
         if (hurt)
         {
             StartCoroutine(Hurt());
@@ -96,6 +99,14 @@ public class BossScript : MonoBehaviour
 
     private IEnumerator Laser()
     {
+        if(enem.currentHealth <= enem.maxHealth/2)
+        {
+            laser_hitbox.GetComponent<BossLaser>().laser_damage = 10;
+        }
+        else
+        {
+            laser_hitbox.GetComponent<BossLaser>().laser_damage = 5;
+        }
         anim.SetBool("Laser", true);
         yield return new WaitForSeconds(0.5f);
         laser_sound.Play();
@@ -127,7 +138,14 @@ public class BossScript : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
             GameObject drop = Instantiate(drop_stuff, selectedSpot.transform);
             yield return new WaitForSeconds(0.6f);
-            selectedSpot.Attack(Random.Range(10, 20));
+            if (enem.currentHealth <= enem.maxHealth / 2)
+            {
+                selectedSpot.Attack(Random.Range(20, 40));
+            }
+            else
+            {
+                selectedSpot.Attack(Random.Range(10, 20));
+            }
             anim.SetBool("Smash", false);
             selectedSpot.GetComponent<SpriteRenderer>().enabled = false;
         }

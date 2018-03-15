@@ -246,10 +246,10 @@ public class SharpShooterController : PlayerController {
         if(gameObject.tag == "Invisible")
         {
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-            player_movement.speed = 25f;
+            player_movement.speed = 30f;
             yield return new WaitForSeconds(2f);
             GetComponent<SpriteRenderer>().color = Color.white;
-            player_movement.speed = 30f;
+            player_movement.speed = 25f;
         }
     }
 

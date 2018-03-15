@@ -121,7 +121,7 @@ MonoBehaviour:
   speed: 25
   time: 1
   healing: 5
-  damage: 6
+  damage: 10
   playerDirection: 0
   attackMultiplier: 1
   go: 0

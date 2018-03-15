@@ -66,12 +66,12 @@ public class DogScript : MonoBehaviour {
         go = true;
         speed = speed * attackMultiplier;
         anim.SetBool("isBasicAttacking", true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         //speed = speed / attackMultiplier;
 
         go = false;
         attacking = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         anim.SetBool("isBasicAttacking", false);
         speed = speed / attackMultiplier;
         //currentRage -= Time.deltaTime;
@@ -93,9 +93,22 @@ public class DogScript : MonoBehaviour {
 
     private IEnumerator DogMovement() //The normal attack. Shoots something straight ahead 
     {
+        if (playerDirection > 0)
+        {
             go = true;
+            DogFacing(0);
             yield return new WaitForSeconds(time);
             go = false;
+            DogFacing(180);
+        }
+        else
+        {
+            go = true;
+            DogFacing(180);
+            yield return new WaitForSeconds(time);
+            go = false;
+            DogFacing(0);
+        }
     }
 
     public void DogFacing(float angle)

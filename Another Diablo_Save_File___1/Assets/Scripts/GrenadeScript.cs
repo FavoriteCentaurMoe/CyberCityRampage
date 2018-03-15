@@ -11,10 +11,15 @@ public class GrenadeScript : MonoBehaviour {
     public float jumpHeight;   //how far
     public float jumpTime; //how high
     public float moveSpeed; //how fast
+
+    public bool hit;
+    public CircleCollider2D radius;
     //public GameObject grenade;
     public bool rise; //is the grenade currently supposed to go up?
 
     public float lastDirection; //this will be set by the MedicPlayerController
+
+    public Animator anim;
 
     private IEnumerator Explosion()
     {
@@ -29,29 +34,40 @@ public class GrenadeScript : MonoBehaviour {
     {
         if(collision.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyController>().SlowEnemy(byHowMuch, forHowLong);
+            //collision.gameObject.GetComponent<EnemyController>().SlowEnemy(byHowMuch, forHowLong);
             //StartCoroutine(Explosion());
+            //Debug.Log("hit enemy stopping");
+            anim.SetBool("Hit", true);
+            hit = true;
+            
         }
     }
 
     // Use this for initialization
     void Start () {
-
-        StartCoroutine(Explosion());
+        anim = GetComponent<Animator>();
+        //StartCoroutine(Explosion());
         StartCoroutine(Jump());
 		
 	}
 
     private IEnumerator Jump()
     {
-        Debug.Log("Jump was initiated");
+        //Debug.Log("Jump was initiated");
         rise = true;
         jumpTime = Time.time + 1f;
+        if (hit)
+            rise = false;
         yield return new WaitForSeconds(1f);
         jumpHeight = -jumpHeight;
+        if (hit)
+            rise = false;
         yield return new WaitForSeconds(1f);
         jumpHeight = -jumpHeight;
+        hit = true;
+        anim.SetBool("Hit", true);
         rise = false;
+        
     }
 
 
@@ -74,6 +90,11 @@ public class GrenadeScript : MonoBehaviour {
         if (rise)
         {
             Rise();
+        }
+        if(hit)
+        {
+            radius.gameObject.SetActive(true);
+            Destroy(this.gameObject, 0.2f);
         }
 
     }

@@ -222,7 +222,16 @@ Prefab:
     - target: {fileID: 224892735047790650, guid: 88950538cb355ec4683b27e346fd5333,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.5250244
+      value: -0.5251465
+      objectReference: {fileID: 0}
+    - target: {fileID: 224831851687414294, guid: 88950538cb355ec4683b27e346fd5333,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -13.155029
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655268508877862, guid: 88950538cb355ec4683b27e346fd5333, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88950538cb355ec4683b27e346fd5333, type: 2}
